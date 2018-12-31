@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Document
+    link(rel="stylesheet", href="style.bundle.css")
+  body
+    .popup
+      p.title Закажите макетные материалы прямо сейчас
+      form
+        input(name="name", placeholder="Ваше имя")
+        input(name="phone", placeholder="Контактный телефон")
+        input(name="email", placeholder="Электронная почта")
+        input(name="info", placeholder="Какие материалы вам требуются?")
+        button Оставить заявку
+      p.info Нажимая на кнопку оставить заявку #[br] 
+        | вы соглашаетесь с #[span политикой обработки данных]
+    script(src="main.bundle.js")
