@@ -39,8 +39,28 @@ app.post("/", (req, res) => {
   else res.send({ "log": "user exist" });
 });
 
-app.listen(3000);
 
+
+// Set up mongoose connection
+const mongoose = require('mongoose');
+let dev_db_url = "mongodb://fewed:26853141q@ds117158.mlab.com:17158/mern-web-shop";
+let mongoDB = process.env.MONGODB_URI || dev_db_url;
+mongoose.connect(mongoDB, { useNewUrlParser: true });
+mongoose.Promise = global.Promise;
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+
+const product = require('./routes/product.route'); // Imports routes for the products
+app.use('/products', product);
+
+
+
+
+
+
+
+app.listen(3000);
 
 
 

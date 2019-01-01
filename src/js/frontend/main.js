@@ -36,3 +36,13 @@ sel("button").addEventListener("click", async (e) => {
 // сделать норм фронт апи
 // сделать модуль либ универсальным для фронт и бэк -
 // прикрутить отправку темплейта в письме -
+
+import { request, add, get, put, del, all } from "./frontAPIforCRUD";
+
+const id = "5c2bc62df9c4aa0ed064044c";
+
+//add({ name: "apple", price: 50 });
+all().then(log);
+//get(id).then(log);
+//put(id, { name: "banana", price: 50 });
+//del(id);
