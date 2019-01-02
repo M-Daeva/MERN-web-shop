@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 });
 
 
-app.post("/", async (req, res) => {
+app.post("/", (req, res) => {
   const data = req.body;
   /*
   //  if (data.phone !== "") sendSMS("yo man");
