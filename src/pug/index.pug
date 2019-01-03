@@ -1,21 +1,22 @@
+include mixins.pug
+
+
 <!DOCTYPE html>
 html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    title Document
-    link(rel="stylesheet", href="style.bundle.css")
+  +head("Main page", "style.bundle.css")
   body
+    a(href="goods.pug") goods
     .popup
       p.title Закажите материалы#[br]
         | прямо сейчас
       form
-        input(name="name", placeholder="Ваше имя")
-        input(name="phone", placeholder="Контактный телефон")
-        input(name="email", placeholder="Электронная почта")
-        input(name="info", placeholder="Какие материалы вам требуются?")
+        +input-nr("name", "Ваше имя")
+        +input-nr("phone", "Контактный телефон")
+        +input-nr("email", "Электронная почта")
+        +input-nr("info", "Какие материалы вам требуются?")
         button Оставить заявку
       p.info Нажимая на кнопку оставить заявку#[br] 
         | вы соглашаетесь с #[span политикой обработки данных]
     script(src="main.bundle.js")
+
+    

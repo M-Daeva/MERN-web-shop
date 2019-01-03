@@ -7,7 +7,8 @@ const exp = require("express"),
   port = process.env.PORT || 3000;
 
 
-app.use("/", cors(), parser.json(), test);
+app.use(cors(), parser.json());
+app.use("/", test);
 app.use("/users", user);
 
 app.listen(port);
