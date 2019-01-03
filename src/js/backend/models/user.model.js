@@ -1,9 +1,7 @@
-const mongoose = require("mongoose"),
+const mongoose = require("../dbAPI"),
   Schema = mongoose.Schema;
 
-mongoose.set("useFindAndModify", false);
-
-let UserSchema = new Schema({
+const UserSchema = new Schema({
   name: { type: String, required: true },
   phone: { type: String },
   email: { type: String },

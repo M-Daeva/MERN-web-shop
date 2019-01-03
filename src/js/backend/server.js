@@ -1,35 +1,13 @@
 const exp = require("express"),
   parser = require("body-parser"),
+  cors = require("cors"),
+  user = require("./routes/user.route"),
+  test = require("./routes/test.route"),
   app = exp(),
-  user = require("./dbAPI").user,
-  { isExist, addUser, sendEmail, sendSMS } = require("./backAPI");
+  port = process.env.PORT || 3000;
 
 
-app.use("/", parser.json());
+app.use("/", cors(), parser.json(), test);
 app.use("/users", user);
 
-
-app.get("/", (req, res) => {
-  res.send(JSON.stringify({ a: 7 }));
-});
-
-
-app.post("/", (req, res) => {
-  const data = req.body;
-  /*
-  //  if (data.phone !== "") sendSMS("yo man");
-  if (/\w+@\w+\.\w/.test(data.email)) sendEmail("Jackie Chan", data.email, `hey ${data.name}!`);
-  if (!isExist(data, storage)) {
-    addUser(data, storage);
-    res.send({ "log": "user added" });
-  }
-  else res.send({ "log": "user exist" });
-  */
-
-  data.id = 777;
-  res.send(JSON.stringify(data));
-});
-
-
-
-app.listen(3000);
+app.listen(port);

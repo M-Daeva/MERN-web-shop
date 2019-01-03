@@ -1,4 +1,4 @@
-export { get, init };
+export { get, set };
 
 function get() {
 	const inputs = [...document.querySelectorAll("input[name]")];
@@ -8,7 +8,7 @@ function get() {
 	}, {});
 }
 
-function init(...vals) {
+function set(...vals) {
 	const inputs = [...document.querySelectorAll("input[name]")];
 	inputs.map((item, i) => (item.value = vals[i]));
 }

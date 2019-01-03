@@ -2,11 +2,15 @@ const express = require("express"),
   router = express.Router(),
   userController = require("../controllers/user.controller");
 
-router.post("/", userController.userAdd);
-router.get("/:id", userController.userGet);
-router.get("/", userController.userGetAll);
-router.put("/:id", userController.userUpdate);
-router.delete("/:id", userController.userDelete);
-router.delete("/", userController.userDeleteAll);
+
+router
+  .get("/", userController.userGetAll)
+  .post("/", userController.userAdd)
+  .delete("/", userController.userDeleteAll)
+
+  .get("/:id", userController.userGet)
+  .put("/:id", userController.userUpdate)
+  .delete("/:id", userController.userDelete);
+
 
 module.exports = router;

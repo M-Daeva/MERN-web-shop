@@ -8,13 +8,14 @@ html(lang="en")
     link(rel="stylesheet", href="style.bundle.css")
   body
     .popup
-      p.title Закажите макетные материалы прямо сейчас
+      p.title Закажите материалы#[br]
+        | прямо сейчас
       form
         input(name="name", placeholder="Ваше имя")
         input(name="phone", placeholder="Контактный телефон")
         input(name="email", placeholder="Электронная почта")
         input(name="info", placeholder="Какие материалы вам требуются?")
         button Оставить заявку
-      p.info Нажимая на кнопку оставить заявку #[br] 
+      p.info Нажимая на кнопку оставить заявку#[br] 
         | вы соглашаетесь с #[span политикой обработки данных]
     script(src="main.bundle.js")
