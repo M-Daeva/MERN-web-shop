@@ -6,8 +6,6 @@ import * as form from "./formAPI";
 import * as req from "./requestAPI";
 import "./QSPA";
 
-//router();
-//router();
 
 form.set("Евгений", "+79287101926", "", "песок, щебень");
 
