@@ -57,7 +57,7 @@ const js = {
 
 
 const config = {
-  entry: ["./src/js/frontend/main.js", "./src/js/backend/server.js", "./src/sass/style.sass"],
+  entry: ["./src/js/frontend/main.js", "./src/sass/style.sass"],
   output: {
     path: path.resolve("dist"),
     filename: "[name].bundle.js"
