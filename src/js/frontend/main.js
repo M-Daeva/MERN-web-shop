@@ -4,18 +4,25 @@ import "babel-polyfill";
 import { log, sel } from "./lib";
 import * as form from "./formAPI";
 import * as req from "./requestAPI";
+import "./QSPA";
+
+//router();
+//router();
 
 form.set("Евгений", "+79287101926", "", "песок, щебень");
 
 sel("button").addEventListener("click", async (e) => {
 	e.preventDefault();
-	const fb = await req.add("/", form.get());
-	const fb2 = await req.all("/users");
-	log(fb.log, fb2);
+	const get = await req.get("/"),
+		get2 = await req.all("/users");
+	log(get);
+	log(get2);
 });
 
+/*
 req.all("/").then((d) => log("/", d));
 req.all("/users").then((d) => log("/users", d));
+*/
 
 /*
 const id = "5c2d13d79fddaf2e24d6a883";
