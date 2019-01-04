@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const PrettierPlugin = require("prettier-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const sass = {
 
@@ -54,6 +55,7 @@ const js = {
   loader: "babel-loader"
 };
 
+
 const config = {
   entry: ["./src/js/frontend/main.js", "./src/sass/style.sass"],
   output: {
@@ -94,7 +96,29 @@ const config = {
       filename: "index.html",
       template: "src/pug/index.pug",
       inject: false
-    })
+    }),
+
+    new CopyWebpackPlugin([
+      {
+        from: './src/img',
+        to: './img'
+      },
+      /*
+      {
+        from: './src/fonts',
+        to: './fonts'
+      },
+      {
+        from: './src/favicon',
+        to: './favicon'
+      },
+      
+      {
+        from: './src/uploads',
+        to: './uploads'
+      }
+      */
+    ]),
 
   ]
 };

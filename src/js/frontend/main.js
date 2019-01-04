@@ -6,7 +6,6 @@ import * as form from "./formAPI";
 import * as req from "./requestAPI";
 import "./QSPA";
 
-
 form.set("Евгений", "+79287101926", "", "песок, щебень");
 
 sel("button").addEventListener("click", async (e) => {
