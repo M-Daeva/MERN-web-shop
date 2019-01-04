@@ -1,6 +1,7 @@
 export { add, get, put, del, all, delAll };
 
 const baseUrl = "http://localhost:3000";
+//const baseUrl = "https://mern-web-shop.herokuapp.com";
 
 async function request(page, method, id = "", data) {
 	if (id !== "") id = "/" + id;
