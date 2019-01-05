@@ -6,48 +6,55 @@ const path = require("path"),
   webpack = require("webpack");
 
 const sass = {
-
   test: /\.(sass|scss)$/,
   include: path.resolve("src"),
-  use: [{
-    loader: MiniCssExtractPlugin.loader,
-    options: {}
-  },
-  {
-    loader: "css-loader",
-    options: {
-      sourceMap: true,
-      url: false
-    }
-  },
-  {
-    loader: "postcss-loader",
-    options: {
-      ident: "postcss",
-      sourceMap: true,
-      plugins: [
-        require("cssnano")({
-          preset: [
-            "default",
-            {
-              discardComments: {
-                removeAll: true
-              }
-            }
-          ]
-        }),
+  use: [
+    {
+      loader: MiniCssExtractPlugin.loader,
+      options: {}
+    },
 
-        require("autoprefixer")({
-          cascade: false,
-          browsers: ['ie >= 8', 'last 4 version']
-        })
-      ]
+    {
+      loader: "css-loader",
+      options: {
+        sourceMap: true,
+        url: false
+      }
+    },
+
+    {
+      loader: "postcss-loader",
+      options: {
+        ident: "postcss",
+        sourceMap: true,
+        plugins: [
+
+          require("cssnano")({
+            preset: [
+              "default",
+              { discardComments: { removeAll: true } }
+            ]
+          }),
+
+          require("autoprefixer")({
+            cascade: false,
+            browsers: [
+              "last 2 version",
+              "> 0.5%",
+              "IE >= 10",
+              "not dead"
+            ]
+          })
+
+        ]
+      }
+    },
+
+    {
+      loader: "sass-loader",
+      options: { sourceMap: true }
     }
-  },
-  {
-    loader: "sass-loader",
-    options: { sourceMap: true }
-  }
+
   ]
 };
 
