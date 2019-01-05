@@ -1,6 +1,6 @@
 const sendEmail = require("../mailerAPI");
 
-const testGet = (req, res, next) => res.json({ a: 77 });
+const testGet = (req, res, next) => res.json({ a: 7 });
 
 const testPost = (req, res, next) => {
   const data = req.body;
