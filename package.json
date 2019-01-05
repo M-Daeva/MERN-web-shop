@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node ./src/js/backend/server.js",
     "build": "webpack --mode production",
     "dev": "webpack-dev-server --mode development --open",
     "ndm": "nodemon ./src/js/backend/server.js",
