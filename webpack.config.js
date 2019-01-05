@@ -39,10 +39,8 @@ const sass = {
           require("autoprefixer")({
             cascade: false,
             browsers: [
-              "last 2 version",
-              "> 0.5%",
-              "IE >= 10",
-              "not dead"
+              "last 4 version",
+              "IE >= 8",
             ]
           })
 
