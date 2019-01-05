@@ -25,7 +25,7 @@ const sass = {
     options: {
       ident: "postcss",
       sourceMap: true,
-      plugins: () => [
+      plugins: [
         require("cssnano")({
           preset: [
             "default",
@@ -35,6 +35,11 @@ const sass = {
               }
             }
           ]
+        }),
+
+        require("autoprefixer")({
+          cascade: false,
+          browsers: ['ie >= 8', 'last 4 version']
         })
       ]
     }
