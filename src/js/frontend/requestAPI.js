@@ -1,7 +1,8 @@
 export { add, get, put, del, all, delAll };
 
-//const baseUrl = "http://localhost:3000";
-const baseUrl = "https://mern-web-shop.herokuapp.com";
+const baseUrl = PROD_MODE
+	? "https://mern-web-shop.herokuapp.com"
+	: "http://localhost:3000"; // webpack mode
 
 async function request(page, method, id = "", data) {
 	if (id !== "") id = "/" + id;

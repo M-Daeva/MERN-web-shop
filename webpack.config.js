@@ -1,8 +1,9 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const PrettierPlugin = require("prettier-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const path = require("path"),
+  HtmlWebpackPlugin = require("html-webpack-plugin"),
+  MiniCssExtractPlugin = require("mini-css-extract-plugin"),
+  PrettierPlugin = require("prettier-webpack-plugin"),
+  CopyWebpackPlugin = require("copy-webpack-plugin"),
+  webpack = require("webpack");
 
 const sass = {
 
@@ -64,7 +65,7 @@ const config = {
   },
 
   devServer: {
-    disableHostCheck: true,   // god bless this solution
+    disableHostCheck: true,   // fix wds disconnect error
     overlay: true,
     proxy: {
       "/js-hw-api/**": {
@@ -83,7 +84,7 @@ const config = {
       useTabs: true, // Indent lines with tabs instead of spaces.
       semi: true, // Print semicolons at the ends of statements.
       encoding: "utf-8", // Which encoding scheme to use on files
-      extensions: [".js", ".ts"], // Which file extensions to process
+      extensions: [".js"], // Which file extensions to process
       trailingComma: "all",
       arrowParens: "always"
     }),
@@ -125,8 +126,13 @@ const config = {
 
 
 module.exports = (env, options) => {
-  config.devtool = options.mode === "production" ?
-    false :
-    "cheap-module-eval-source-map";
+  const isProd = options.mode === "production";
+
+  config.devtool = isProd ? false : "cheap-module-eval-source-map";
+
+  config.plugins.push(
+    new webpack.DefinePlugin({ PROD_MODE: JSON.stringify(isProd) })
+  );
+
   return config;
 }
