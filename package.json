@@ -57,6 +57,7 @@
     "mongoose": "^5.4.1",
     "nodemailer": "^4.7.0",
     "nodemailer-smtp-transport": "^2.7.4",
-    "sms_ru": "0.0.1"
+    "sms_ru": "0.0.1",
+    "whatwg-fetch": "^3.0.0"
   }
 }

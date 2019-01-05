@@ -1,3 +1,4 @@
+import { fetch } from "whatwg-fetch";
 export { add, get, put, del, all, delAll };
 
 const baseUrl = PROD_MODE
