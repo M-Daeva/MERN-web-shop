@@ -1,25 +1,9 @@
 import axios from "axios";
-import { fetch } from "whatwg-fetch";
 export { add, get, put, del, all, delAll };
 
 const baseUrl = PROD_MODE
 	? "https://mern-web-shop.herokuapp.com"
 	: "http://localhost:3000"; // webpack mode
-
-/*
-async function request(page, method, id = "", data) {
-if (id !== "") id = "/" + id;
-const url = baseUrl + page + id;
-const res = await fetch(url, {
-	method,
-	headers: { "Content-Type": "application/json" },
-	body: JSON.stringify(data),
-});
-const fb = await res.text();
-
-return fb;
-}
-*/
 
 async function request(page, method, id = "", data) {
 	if (id !== "") id = "/" + id;

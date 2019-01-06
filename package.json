@@ -58,8 +58,6 @@
     "node-fetch": "^2.3.0",
     "nodemailer": "^4.7.0",
     "nodemailer-smtp-transport": "^2.7.4",
-    "sms_ru": "0.0.1",
-    "telegraf": "^3.25.5",
-    "whatwg-fetch": "^3.0.0"
+    "sms_ru": "0.0.1"
   }
 }
