@@ -19,7 +19,9 @@ const telegram = (req, res, next) => {
     return acc + `${`${cur}`.bold()}: ${obj[cur]}\n`
   }, ``);
 
-  ax.post("", { text });
+  try { ax.post("", { text }) }
+  catch (e) { console.log(e) }
+
   res.send("done");
 };
 

@@ -10,13 +10,17 @@ form.set("Евгений", "+79287101926", "", "песок, щебень");
 
 sel("button").addEventListener("click", async (e) => {
 	e.preventDefault();
-	const get = await req.get("/"),
-		get2 = await req.all("/users"),
-		get3 = await req.add("/telegram", form.get());
+	try {
+		const get = await req.get("/"),
+			get2 = await req.all("/users"),
+			get3 = await req.add("/telegram", form.get());
 
-	log(get);
-	log(get2);
-	log(get3);
+		log(get);
+		log(get2);
+		log(get3);
+	} catch (e) {
+		log(e);
+	}
 });
 
 /*
