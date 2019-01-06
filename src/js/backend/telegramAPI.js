@@ -13,9 +13,13 @@ const ax = axios.create({
 });
 
 const telegram = (req, res, next) => {
-  const msg = JSON.stringify({ text: req.body });
+  const obj = req.body;
 
-  ax.post("", msg);
+  const text = Object.keys(obj).reduce((acc, cur) => {
+    return acc + `${`${cur}`.bold()}: ${obj[cur]}\n`
+  }, ``);
+
+  ax.post("", { text });
 };
 
 module.exports = telegram;

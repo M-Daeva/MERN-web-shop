@@ -11,9 +11,11 @@ form.set("Евгений", "+79287101926", "", "песок, щебень");
 sel("button").addEventListener("click", async (e) => {
 	e.preventDefault();
 	const get = await req.get("/"),
-		get2 = await req.all("/users");
+		get2 = await req.all("/users"),
+		get3 = await req.add("/telegram", form.get());
 	log(get);
 	log(get2);
+	log(get3);
 });
 
 /*
@@ -32,43 +34,4 @@ const id = "5c2d13d79fddaf2e24d6a883";
 	await req.put("/users", id, form.get()).then(log);
 	await req.delAll("/users").then(log);
 })();
-*/
-
-/*
-const token = "741106985:AAFV0rcEhYWqcyJ1UU8EuvM2WgEM8yg05jg";
-const chatID = "-327421362";
-const msg = "Hi, my friend!";
-
-const p =
-	`https://api.telegram.org/bot${token}` +
-	`/sendMessage?chat_id=${chatID}` +
-	`&parse_mode=html&text=${msg}`;
-
-fetch(p, { method: "POST" })
-	.then((d) => d.json())
-	.then(log);
-*/
-
-/*
-import sum from "../common/lib";
-log(sum(5, 7));
-*/
-
-/*
-import axios from "axios";
-
-const token = "741106985:AAFV0rcEhYWqcyJ1UU8EuvM2WgEM8yg05jg";
-const chatID = "-327421362";
-const msg = { text: "синий друг тоже работает с axios" };
-
-const p =
-	`https://api.telegram.org/bot${token}` +
-	`/sendMessage?chat_id=${chatID}` +
-	`&parse_mode=html`;
-
-
-
-axios.post(p, JSON.stringify(msg), {
-	headers: { "Content-Type": "application/json" },
-});
 */
