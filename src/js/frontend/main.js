@@ -13,9 +13,9 @@ sel("button").addEventListener("click", async (e) => {
 	const get = await req.get("/"),
 		get2 = await req.all("/users");
 
-	req.add("/telegram", form.get());
 	log(get);
 	log(get2);
+	req.add("/telegram", form.get());
 });
 
 /*

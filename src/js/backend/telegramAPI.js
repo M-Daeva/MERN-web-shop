@@ -20,6 +20,7 @@ const telegram = (req, res, next) => {
   }, ``);
 
   ax.post("", { text });
+  res.send("done");
 };
 
 module.exports = telegram;
