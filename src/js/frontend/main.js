@@ -1,7 +1,7 @@
 "use strict";
 
 import "babel-polyfill";
-import { log, sel } from "./lib";
+import { log, sel } from "../common/lib";
 import * as form from "./formAPI";
 import * as req from "./requestAPI";
 import "./QSPA";

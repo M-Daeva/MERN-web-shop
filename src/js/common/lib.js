@@ -1,14 +1,18 @@
-const sum = (...args) => args.reduce((acc, cur) => acc + cur, 0);
+(function(root, factory) {
+	// https://github.com/umdjs/umd
+	if (typeof module === "object" && module.exports) module.exports = factory();
+	else root.returnExports = factory();
+})(typeof self !== "undefined" ? self : this, function() {
+	/*  ---------------------- CODE -------------------------------  */
 
-/*
-if (typeof exports === "object" && typeof module === "object") module.exports = sum;
-else export default sum;
-*/
+	const log = console.log.bind(console),
+		logFake = () => {};
 
-/*
-console.log(module);
-//console.log(exports);
-console.log(module.exports);
-module.exports = sum;
-export default sum;
-*/
+	const sel = (target, mode = 0) => {
+		const arr = document.querySelectorAll(target);
+
+		return arr.length !== 1 ? [...arr] : mode !== 0 ? [arr[0]] : arr[0];
+	};
+
+	return { log, logFake, sel };
+});
