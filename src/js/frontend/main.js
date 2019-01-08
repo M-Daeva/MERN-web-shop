@@ -40,3 +40,10 @@ const id = "5c2d13d79fddaf2e24d6a883";
 	await req.delAll("/users").then(log);
 })();
 */
+
+import ReactDOM from "react-dom";
+import React, { Component } from "react";
+import Button from "./components/button.jsx";
+import Button2 from "./components/button.pug";
+
+//ReactDOM.render(<Button />, sel("form"));

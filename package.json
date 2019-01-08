@@ -21,6 +21,7 @@
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
+    "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.4.4",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
@@ -38,6 +39,7 @@
     "postcss-loader": "^3.0.0",
     "prettier": "^1.15.3",
     "prettier-webpack-plugin": "^1.2.0",
+    "pug-as-jsx-loader": "^1.0.59",
     "pug-html-loader": "^1.1.5",
     "sass-loader": "^7.1.0",
     "url-loader": "^1.1.2",
@@ -53,11 +55,13 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-dust": "^0.1.5",
+    "jsx": "^0.9.89",
     "knex": "^0.16.3",
     "mongoose": "^5.4.1",
-    "node-fetch": "^2.3.0",
     "nodemailer": "^4.7.0",
     "nodemailer-smtp-transport": "^2.7.4",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "sms_ru": "0.0.1"
   }
 }

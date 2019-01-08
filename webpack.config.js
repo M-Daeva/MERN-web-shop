@@ -28,22 +28,14 @@ const sass = {
         ident: "postcss",
         sourceMap: true,
         plugins: [
-
           require("cssnano")({
-            preset: [
-              "default",
-              { discardComments: { removeAll: true } }
-            ]
+            preset: ["default", { discardComments: { removeAll: true } }]
           }),
 
           require("autoprefixer")({
             cascade: false,
-            browsers: [
-              "last 4 version",
-              "IE >= 8",
-            ]
+            browsers: ["last 4 version", "IE >= 8"]
           })
-
         ]
       }
     },
@@ -52,13 +44,19 @@ const sass = {
       loader: "sass-loader",
       options: { sourceMap: true }
     }
-
   ]
 };
 
 const pug = {
   test: /\.pug$/,
-  use: ["html-loader?attrs=false", "pug-html-loader"]
+  use: ["html-loader?attrs=false", "pug-html-loader"],
+  exclude: path.resolve("src/js/frontend")
+};
+
+const pugJSX = {
+  test: /\.pug$/,
+  use: ["babel-loader", "pug-as-jsx-loader"],
+  exclude: path.resolve("src/pug")
 };
 
 const js = {
@@ -66,6 +64,10 @@ const js = {
   loader: "babel-loader"
 };
 
+const jsx = {
+  test: /\.jsx$/,
+  loader: "babel-loader"
+};
 
 const config = {
   entry: ["./src/js/frontend/main.js", "./src/sass/style.sass"],
@@ -75,7 +77,7 @@ const config = {
   },
 
   devServer: {
-    disableHostCheck: true,   // fix wds disconnect error
+    disableHostCheck: true, // fix wds disconnect error
     overlay: true,
     proxy: {
       "/js-hw-api/**": {
@@ -86,7 +88,7 @@ const config = {
     }
   },
 
-  module: { rules: [pug, sass, js] },
+  module: { rules: [pug, sass, js, jsx, pugJSX] },
   plugins: [
     new PrettierPlugin({
       printWidth: 90, // Specify the length of line that the printer will wrap on.
@@ -111,9 +113,9 @@ const config = {
 
     new CopyWebpackPlugin([
       {
-        from: './src/img',
-        to: './img'
-      },
+        from: "./src/img",
+        to: "./img"
+      }
       /*
       {
         from: './src/fonts',
@@ -129,11 +131,9 @@ const config = {
         to: './uploads'
       }
       */
-    ]),
-
+    ])
   ]
 };
-
 
 module.exports = (env, options) => {
   const isProd = options.mode === "production";
@@ -145,4 +145,4 @@ module.exports = (env, options) => {
   );
 
   return config;
-}
+};
