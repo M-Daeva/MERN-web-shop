@@ -12,6 +12,7 @@ sel("button").addEventListener("click", async (e) => {
 	e.preventDefault();
 	try {
 		const get = await req.get("/"),
+			post = await req.add("/", form.get()),
 			get2 = await req.all("/users"),
 			get3 = await req.add("/telegram", form.get());
 
@@ -44,6 +45,8 @@ const id = "5c2d13d79fddaf2e24d6a883";
 import ReactDOM from "react-dom";
 import React, { Component } from "react";
 import Button from "./components/button.jsx";
-import Button2 from "./components/button.pug";
+import Button2 from "./components/button.js";
 
-//ReactDOM.render(<Button />, sel("form"));
+//const button2 = new Button2().render();
+
+//ReactDOM.render(<Button2 />, sel("form"));

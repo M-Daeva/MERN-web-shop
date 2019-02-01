@@ -4,7 +4,8 @@ const testGet = (req, res, next) => res.json({ a: 777 });
 
 const testPost = (req, res, next) => {
   const data = req.body;
-  //  if (/\w+@\w+\.\w/.test(data.email)) sendEmail("John", data.email, `hi ${data.name}!`);
+  const { email, name } = data;
+  if (/\w+@\w+\.\w/.test(email)) sendEmail("John", email, `hi ${name}!`);
   data.id = 7;
   res.json(data);
 };

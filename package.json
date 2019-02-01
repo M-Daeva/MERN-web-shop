@@ -39,7 +39,6 @@
     "postcss-loader": "^3.0.0",
     "prettier": "^1.15.3",
     "prettier-webpack-plugin": "^1.2.0",
-    "pug-as-jsx-loader": "^1.0.59",
     "pug-html-loader": "^1.1.5",
     "sass-loader": "^7.1.0",
     "url-loader": "^1.1.2",
@@ -49,6 +48,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.3",
@@ -60,6 +60,8 @@
     "mongoose": "^5.4.1",
     "nodemailer": "^4.7.0",
     "nodemailer-smtp-transport": "^2.7.4",
+    "prop-types": "^15.6.2",
+    "pug-to-react-element": "^0.5.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "sms_ru": "0.0.1"
