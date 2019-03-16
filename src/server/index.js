@@ -3,12 +3,9 @@ const exp = require("express"),
   cors = require("cors"),
   user = require("./routes/user.route"),
   test = require("./routes/test.route"),
-  telegram = require("./telegramAPI"),
-  { log } = require("../common/lib"),
+  telegram = require("./services/telegram-service"),
   app = exp(),
   port = process.env.PORT || 3000;
-
-
 
 app.use(cors(), parser.text(), parser.json());
 app.use("/", test);

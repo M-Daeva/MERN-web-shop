@@ -4,15 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/js/backend/server.js",
+    "start": "node ./src/server/index.js",
     "build": "webpack --mode production",
-    "dev": "webpack-dev-server --mode development --open",
-    "ndm": "nodemon ./src/js/backend/server.js",
+    "dev": "webpack-dev-server --mode development",
+    "ndm": "nodemon ./src/server/index.js",
     "full": "start npm run dev | start npm run ndm"
   },
   "nodemonConfig": {
     "ignore": [
-      "frontend/**"
+      "client/**"
     ]
   },
   "keywords": [],
@@ -39,7 +39,6 @@
     "postcss-loader": "^3.0.0",
     "prettier": "^1.15.3",
     "prettier-webpack-plugin": "^1.2.0",
-    "pug-html-loader": "^1.1.5",
     "sass-loader": "^7.1.0",
     "url-loader": "^1.1.2",
     "webpack": "^4.28.1",
@@ -60,10 +59,12 @@
     "mongoose": "^5.4.1",
     "nodemailer": "^4.7.0",
     "nodemailer-smtp-transport": "^2.7.4",
-    "prop-types": "^15.6.2",
-    "pug-to-react-element": "^0.5.0",
+    "prop-types": "^15.7.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-redux": "^6.0.1",
+    "react-router": "^4.4.0",
+    "redux": "^4.0.1",
     "sms_ru": "0.0.1"
   }
 }

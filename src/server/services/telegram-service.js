@@ -12,15 +12,18 @@ const ax = axios.create({
   headers: { "Content-Type": "application/json" }
 });
 
-const telegram = (req, res, next) => {
+const telegram = async (req, res, next) => {
   const obj = req.body;
 
   const text = Object.keys(obj).reduce((acc, cur) => {
-    return acc + `${`${cur}`.bold()}: ${obj[cur]}\n`
+    return acc + `${`${cur}`.bold()}: ${obj[cur]}\n`;
   }, ``);
 
-  try { ax.post("", { text }) }
-  catch (e) { console.log(e) }
+  try {
+    ax.post("", { text });
+  } catch (e) {
+    console.log(e);
+  }
 
   res.send("done");
 };

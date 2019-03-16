@@ -47,30 +47,27 @@ const sass = {
   ]
 };
 
-const pug = {
-  test: /\.pug$/,
-  use: ["html-loader?attrs=false", "pug-html-loader"],
-  exclude: path.resolve("src/js/frontend")
-};
-
-const pugJSX = {
-  test: /\.pug$/,
-  use: ["babel-loader", "pug-as-jsx-loader"],
-  exclude: path.resolve("src/pug")
-};
-
 const js = {
-  test: /\.js$/,
+  test: /\.jsx?$/,
+  exclude: /node_modules/,
   loader: "babel-loader"
 };
 
-const jsx = {
-  test: /\.jsx$/,
-  loader: "babel-loader"
+const img = {
+  test: /\.(gif|png|jpe?g|svg)$/i,
+  use: [
+    "file-loader",
+    {
+      loader: "image-webpack-loader",
+      options: {
+        disable: true
+      }
+    }
+  ]
 };
 
 const config = {
-  entry: ["./src/js/frontend/main.js", "./src/sass/style.sass"],
+  entry: ["babel-polyfill", "./src/client/index.js"],
   output: {
     path: path.resolve("docs"), // for github pages deploy
     filename: "[name].bundle.js"
@@ -78,17 +75,10 @@ const config = {
 
   devServer: {
     disableHostCheck: true, // fix wds disconnect error
-    overlay: true,
-    proxy: {
-      "/js-hw-api/**": {
-        target: "http://faceprog.ru/",
-        secure: false,
-        changeOrigin: true
-      }
-    }
+    overlay: true
   },
 
-  module: { rules: [pug, sass, js, jsx, pugJSX] },
+  module: { rules: [js, sass, img] },
   plugins: [
     new PrettierPlugin({
       printWidth: 90, // Specify the length of line that the printer will wrap on.
@@ -101,38 +91,17 @@ const config = {
       arrowParens: "always"
     }),
 
+    new HtmlWebpackPlugin({
+      template: "./src/client/index.html"
+    }),
+
     new MiniCssExtractPlugin({
       filename: "style.bundle.css"
-    }),
-
-    new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: "src/pug/index.pug",
-      inject: false
-    }),
-
-    new CopyWebpackPlugin([
-      {
-        from: "./src/img",
-        to: "./img"
-      }
-      /*
-      {
-        from: './src/fonts',
-        to: './fonts'
-      },
-      {
-        from: './src/favicon',
-        to: './favicon'
-      },
-      
-      {
-        from: './src/uploads',
-        to: './uploads'
-      }
-      */
-    ])
-  ]
+    })
+  ],
+  resolve: {
+    extensions: [".js", ".jsx"]
+  }
 };
 
 module.exports = (env, options) => {
