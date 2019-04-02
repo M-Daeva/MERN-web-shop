@@ -4,6 +4,7 @@ const exp = require("express"),
   user = require("./routes/user.route"),
   test = require("./routes/test.route"),
   telegram = require("./services/telegram-service"),
+  //  synch = require("./services/db-synchronize-service"),
   app = exp(),
   port = process.env.PORT || 3000;
 
