@@ -1,4 +1,4 @@
-const User = require("../models/user.model");
+const User = require("../models/users");
 
 const userAdd = (req, res, next) => {
   const user = new User(req.body);

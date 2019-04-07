@@ -1,4 +1,4 @@
-const mongoose = require("../services/db-service"),
+const mongoose = require("../services/db"),
   Schema = mongoose.Schema;
 
 const UserSchema = new Schema({

@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import "./app.scss";
 import Main from "../main";
-import Goods from "../goods";
+import Products from "../products";
 import Order from "../order";
 import Cart from "../cart";
 import Navbar from "../navbar";
@@ -22,7 +22,7 @@ class App extends Component {
         <Navbar />
         <Switch>
           <Route exact path="/" component={Main} />
-          <Route path="/goods" component={Goods} />
+          <Route path="/products" component={Products} />
           <Route path="/cart" component={Cart} />
           <Route path="/order" component={Order} />
           <Redirect to="/" />

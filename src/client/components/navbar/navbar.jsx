@@ -18,8 +18,8 @@ class Navbar extends Component {
           </NavLink>
         </li>
         <li>
-          <NavLink activeClassName="active" to="/goods">
-            Goods
+          <NavLink activeClassName="active" to="/products">
+            Products
           </NavLink>
         </li>
         <li>

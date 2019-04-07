@@ -7,7 +7,7 @@ const { create } = require("axios"),
 
 const l = console.log.bind(console);
 
-(async () => {
+const getProducts = async () => {
   const goods = [];
 
   try {
@@ -37,7 +37,8 @@ const l = console.log.bind(console);
     l("request error");
   }
 
-  fs.writeFile("dom.txt", JSON.stringify(goods), "utf8", () => l("done"));
-})();
+  //  fs.writeFile("dom.txt", JSON.stringify(goods), "utf8", () => l("done"));
+  return goods;
+};
 
-module.exports = {};
+module.exports = getProducts;

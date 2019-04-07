@@ -1,5 +1,4 @@
 import axios from "axios";
-export { add, get, put, del, all, delAll };
 
 const baseUrl = PROD_MODE
 	? "https://mern-web-shop.herokuapp.com"
@@ -24,3 +23,5 @@ const add = async (page, data) => await request(page, "POST", undefined, data),
 	put = async (page, id, data) => await request(page, "PUT", id, data),
 	del = async (page, id) => await request(page, "DELETE", id),
 	delAll = async (page) => await request(page, "DELETE");
+
+export { add, get, put, del, all, delAll };
