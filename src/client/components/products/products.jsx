@@ -2,54 +2,54 @@ import React, { Component } from "react";
 import "./products.scss";
 import { all, add, get } from "../../services/request";
 import l from "../../services/log";
+import Product from "../product";
 
 class Products extends Component {
-  state = {
-    products: [
-      {
-        description: "arduino board",
-        name: "arduino",
-        img: "http://bit.do/eNAkv"
-      },
-      {
-        description: "raspberry board",
-        name: "raspberry",
-        img: "http://bit.do/eNAk4"
-      }
-    ]
+  state = {};
+
+  getProductList = async () => {
+    const { updateDB } = this;
+    const products = await get("/db", "products");
+    if (!products.length) await updateDB();
+    this.setState({ products });
+  };
+
+  componentDidMount = async () => {
+    const { getProductList } = this;
+    await getProductList();
   };
 
   getProducts = () => {
-    const { products } = this.state;
-    return products.map(({ description, name, img }) => (
-      <div id="item" key={description}>
-        <h2>{name}</h2>
-        <p>{description}</p>
-        <img src={img} alt={description} />
-      </div>
-    ));
+    const {
+      state: { products }
+    } = this;
+    if (!products) return <div>spinner</div>;
+
+    return (
+      <ul id="product-list">
+        {products.map(({ description, name, img, _id }) => (
+          <Product {...{ key: _id, description, name, img }} />
+        ))}
+      </ul>
+    );
   };
 
-  update = async () => {
-    const data = {
-      name: "eugene",
-      phone: "+78676463543",
-      email: "q@gmail.com",
-      info: "wood"
-    };
-    //  const res = await all("/grabber");
+  updateDB = async () => {
+    const { getProductList } = this;
+    const res = await all("/grabber");
+    l(res);
+    getProductList();
     //  const res = await add("/telegram", data);
     // const res = await all("/users", data);
-    const res = await get("/db", "users");
-    l(res);
+    // const res = await get("/db", "users");
   };
 
   render() {
-    const { getProducts, update } = this;
+    const { getProducts, updateDB } = this;
 
     return (
       <div id="products">
-        <button onClick={update}>refresh data</button>
+        <button onClick={updateDB}>refresh product list</button>
         {getProducts()}
       </div>
     );

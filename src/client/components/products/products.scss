@@ -1,5 +1,25 @@
-#item {
-  border: 1px solid black;
-  margin: 5px;
-  padding: 5px;
+#products {
+  text-align: center;
+
+  ul {
+    padding: 0;
+  }
+
+  button {
+    outline: none;
+    display: block;
+    margin: 10px auto 0;
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 10%;
+    padding: 10px 5px;
+
+    &:active {
+      outline: none;
+    }
+    &:hover {
+      background-color: aqua;
+      cursor: pointer;
+    }
+  }
 }
