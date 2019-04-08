@@ -27,8 +27,8 @@ class Products extends Component {
 
     return (
       <ul id="product-list">
-        {products.map(({ description, name, img, _id }) => (
-          <Product {...{ key: _id, description, name, img }} />
+        {products.map(({ description, params, price, name, img, _id }) => (
+          <Product {...{ key: _id, description, name, img, params, price }} />
         ))}
       </ul>
     );

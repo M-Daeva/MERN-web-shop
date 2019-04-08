@@ -5,7 +5,7 @@ class Product extends Component {
   state = {};
   render() {
     const {
-      props: { description, name, img }
+      props: { description, name, img, params, price }
     } = this;
 
     return (
@@ -13,6 +13,7 @@ class Product extends Component {
         <h2>{name}</h2>
         <p>{description}</p>
         <img src={img} alt={description} />
+        <p>{`${price} коп.`}</p>
       </li>
     );
   }

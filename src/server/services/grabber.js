@@ -7,31 +7,47 @@ const { create } = require("axios"),
 
 const l = console.log.bind(console);
 
+const createQuerySelector = async link => {
+  const { data } = await ax.get(link);
+  const dom = new JSDOM(data);
+  return target => [...dom.window.document.querySelectorAll(target)];
+};
+
 const getProducts = async () => {
   const goods = [];
 
   try {
-    const { data } = await ax.get(startPage);
-    const dom = new JSDOM(data),
-      $ = target => [...dom.window.document.querySelectorAll(target)];
+    const $ = await createQuerySelector(startPage);
+    const otherPages = $(".pager ul li a").map(item => item.href);
+    const pages = [startPage, ...otherPages];
 
-    const startPageDeviceLinks = $(".item__content a").map(item => item.href);
+    for (let page of pages) {
+      const $ = await createQuerySelector(page);
+      const deviceLinks = $(".item__content a").map(item => item.href);
 
-    for (let deviceLink of startPageDeviceLinks) {
-      const { data } = await ax.get(deviceLink);
-      const dom = new JSDOM(data),
-        $ = target => [...dom.window.document.querySelectorAll(target)];
-
-      const name = $("h1")[0].textContent;
-      const img = $(".product__image-preview")[0].src;
-      let desc = $(".item_desc")[0].textContent;
-      desc = desc
-        .slice(
-          0,
-          desc.search(/Технические|Характеристики|Особенности|Спецификация/)
-        )
-        .trim();
-      goods.push({ description: desc, name, img });
+      for (let deviceLink of deviceLinks) {
+        const $ = await createQuerySelector(deviceLink);
+        const name = $("h1")[0].textContent,
+          img = $(".product__image-preview")[0].src,
+          desc = $(".item_desc")[0].textContent,
+          price = +$(".ordering__value")[0].textContent.replace(/ /g, ""),
+          info = desc
+            .slice(
+              0,
+              desc.search(
+                /Технические|Характеристики|Особенности|Спецификация|Описание|Отличительные/
+              )
+            )
+            .trim(),
+          params = desc
+            .slice(
+              desc.search(
+                /Технические|Характеристики|Особенности|Спецификация|Описание|Отличительные/
+              )
+            )
+            .trim();
+        goods.push({ description: info, params, price, name, img });
+      }
     }
   } catch (e) {
     l("request error");

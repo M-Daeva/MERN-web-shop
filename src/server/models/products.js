@@ -4,6 +4,8 @@ const mongoose = require("../services/db"),
 const ProductSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String },
+  params: { type: String },
+  price: { type: Number },
   img: { type: String }
 });
 
