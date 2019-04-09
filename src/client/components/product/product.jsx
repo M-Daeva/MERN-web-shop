@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./product.scss";
+import CartControls from "../cart-controls";
 
 class Product extends Component {
   state = {};
@@ -14,6 +15,7 @@ class Product extends Component {
         <p>{description}</p>
         <img src={img} alt={description} />
         <p>{`${price} коп.`}</p>
+        <CartControls />
       </li>
     );
   }

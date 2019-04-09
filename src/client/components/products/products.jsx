@@ -3,14 +3,18 @@ import "./products.scss";
 import { all, add, get } from "../../services/request";
 import l from "../../services/log";
 import Product from "../product";
+import CartPrice from "../cart-price";
+
+const prodSize = 10;
 
 class Products extends Component {
   state = {};
 
   getProductList = async () => {
     const { updateDB } = this;
-    const products = await get("/db", "products");
+    let products = await get("/db", "products");
     if (!products.length) await updateDB();
+    if (prodSize) products = products.slice(0, prodSize);
     this.setState({ products });
   };
 
@@ -49,7 +53,8 @@ class Products extends Component {
 
     return (
       <div id="products">
-        <button onClick={updateDB}>refresh product list</button>
+        <CartPrice />
+        {/*<button onClick={updateDB}>refresh product list</button>*/}
         {getProducts()}
       </div>
     );
