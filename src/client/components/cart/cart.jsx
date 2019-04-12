@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import "./cart.scss";
+import styles from "./cart.scss";
+import cnInit from "jcm-classnames";
+const cn = cnInit(styles);
 
 class Cart extends Component {
   state = {};

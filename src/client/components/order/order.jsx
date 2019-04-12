@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import "./order.scss";
+import styles from "./order.scss";
+import cnInit from "jcm-classnames";
+const cn = cnInit(styles);
 
 class Order extends Component {
   state = {};

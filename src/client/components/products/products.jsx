@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import "./products.scss";
+import styles from "./products.scss";
+import cnInit from "jcm-classnames";
+const cn = cnInit(styles);
 import { all, add, get } from "../../services/request";
 import l from "../../services/log";
 import Product from "../product";

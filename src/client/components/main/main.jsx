@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import "./main.scss";
+import styles from "./main.scss";
+import cnInit from "jcm-classnames";
+const cn = cnInit(styles);
 
 class Main extends Component {
   state = {};

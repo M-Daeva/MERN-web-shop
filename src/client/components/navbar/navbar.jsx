@@ -5,7 +5,9 @@ import {
   Switch,
   NavLink
 } from "react-router-dom";
-import "./navbar.scss";
+import styles from "./navbar.scss";
+import cnInit from "jcm-classnames";
+const cn = cnInit(styles);
 
 class Navbar extends Component {
   state = {};

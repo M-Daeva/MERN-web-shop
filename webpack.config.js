@@ -18,7 +18,9 @@ const sass = {
       loader: "css-loader",
       options: {
         sourceMap: true,
-        url: false
+        url: false,
+        modules: true,
+        localIdentName: "[local]__[hash:base64:5]"
       }
     },
 

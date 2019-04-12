@@ -1,4 +1,4 @@
-#cart-price {
+.cartPrice {
   border: 1px solid black;
   width: 50vw;
   padding: 5px;
@@ -7,4 +7,16 @@
   left: 0;
   margin-left: auto;
   background-color: white;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+
+.rounded {
+  border-radius: 10%;
 }

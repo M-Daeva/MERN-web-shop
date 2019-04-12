@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import "./product.scss";
+import styles from "./product.scss";
+import cnInit from "jcm-classnames";
+const cn = cnInit(styles);
 import CartControls from "../cart-controls";
 
 class Product extends Component {
