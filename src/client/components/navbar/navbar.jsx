@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import {
-  Route,
-  BrowserRouter as Router,
-  Switch,
-  NavLink
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./navbar.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
@@ -13,26 +8,26 @@ class Navbar extends Component {
   state = {};
   render() {
     return (
-      <ul id="navbar">
-        <li>
-          <NavLink exact activeClassName="active" to="/">
+      <ul className={cn("navbar")}>
+        <li className={cn("item")}>
+          <Link className={cn("link")} to="/">
             Main
-          </NavLink>
+          </Link>
         </li>
-        <li>
-          <NavLink activeClassName="active" to="/products">
+        <li className={cn("item")}>
+          <Link className={cn("link")} to="/products">
             Products
-          </NavLink>
+          </Link>
         </li>
-        <li>
-          <NavLink activeClassName="active" to="/cart">
+        <li className={cn("item")}>
+          <Link className={cn("link")} to="/cart">
             Cart
-          </NavLink>
+          </Link>
         </li>
-        <li>
-          <NavLink activeClassName="active" to="/order">
+        <li className={cn("item")}>
+          <Link className={cn("link")} to="/order">
             Order
-          </NavLink>
+          </Link>
         </li>
       </ul>
     );

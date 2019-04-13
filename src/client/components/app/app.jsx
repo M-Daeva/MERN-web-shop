@@ -3,18 +3,17 @@ import {
   Route,
   BrowserRouter as Router,
   Switch,
-  NavLink,
   Redirect,
   HashRouter
 } from "react-router-dom";
-import styles from "./app.scss";
-import cnInit from "jcm-classnames";
-const cn = cnInit(styles);
 import Main from "../main";
 import Products from "../products";
 import Order from "../order";
 import Cart from "../cart";
 import Navbar from "../navbar";
+import styles from "./app.scss";
+import cnInit from "jcm-classnames";
+const cn = cnInit(styles);
 
 class App extends Component {
   state = {};

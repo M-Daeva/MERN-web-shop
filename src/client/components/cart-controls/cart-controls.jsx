@@ -4,16 +4,21 @@ import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 class CartControls extends Component {
-  state = {};
+  state = { number: 0 };
+
   render() {
+    const {
+      state: { number }
+    } = this;
+
     return (
-      <div id="cart-controls">
+      <div className={cn("controls")}>
         <div>
-          <button>-</button>
-          <input />
-          <button>+</button>
+          <button className={cn("btn")}>-</button>
+          <input type="number" placeholder={0} className={cn("input")} />
+          <button className={cn("btn")}>+</button>
         </div>
-        <span>В корзине х шт.</span>
+        <span className={cn("info")}>В корзине {number} шт.</span>
       </div>
     );
   }

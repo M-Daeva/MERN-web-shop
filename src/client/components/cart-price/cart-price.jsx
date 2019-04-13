@@ -5,7 +5,7 @@ import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 class CartPrice extends Component {
-  state = { color: "red" };
+  state = { color: "blue", number: 0 };
 
   handler = () => {
     this.setState(({ color }) => {
@@ -16,13 +16,13 @@ class CartPrice extends Component {
 
   render() {
     const {
-      state: { color },
+      state: { color, number },
       handler
     } = this;
 
     return (
-      <h2 onClick={handler} className={cn("cartPrice  rounded", color)}>
-        Товаров в корзине на сумму х коп.
+      <h2 onClick={handler} className={cn("cartPrice", color)}>
+        Товаров в корзине на сумму {number} коп.
       </h2>
     );
   }

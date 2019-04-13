@@ -1,12 +1,12 @@
 .cartPrice {
-  border: 1px solid black;
+  background-color: rgba($color: black, $alpha: 0.8);
   width: 50vw;
   padding: 5px;
+  position: fixed;
   position: sticky;
   top: 0;
-  left: 0;
+  right: 0;
   margin-left: auto;
-  background-color: white;
 }
 
 .red {
@@ -15,8 +15,4 @@
 
 .blue {
   color: blue;
-}
-
-.rounded {
-  border-radius: 10%;
 }

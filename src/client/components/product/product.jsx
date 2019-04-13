@@ -1,8 +1,8 @@
 import React, { Component } from "react";
+import CartControls from "../cart-controls";
 import styles from "./product.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
-import CartControls from "../cart-controls";
 
 class Product extends Component {
   state = {};
@@ -12,11 +12,11 @@ class Product extends Component {
     } = this;
 
     return (
-      <li id="item">
+      <li className={cn("item")}>
         <h2>{name}</h2>
-        <p>{description}</p>
+        <p className={cn("description")}>{description}</p>
         <img src={img} alt={description} />
-        <p>{`${price} коп.`}</p>
+        <p className={cn("price")}>{`${price} коп.`}</p>
         <CartControls />
       </li>
     );

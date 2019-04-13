@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import styles from "./products.scss";
-import cnInit from "jcm-classnames";
-const cn = cnInit(styles);
 import { all, add, get } from "../../services/request";
 import l from "../../services/log";
 import Product from "../product";
 import CartPrice from "../cart-price";
+import scrollRestorer from "../../services/scroll-restorer";
+import styles from "./products.scss";
+import cnInit from "jcm-classnames";
+const cn = cnInit(styles);
 
 const prodSize = 10;
 
@@ -23,6 +24,7 @@ class Products extends Component {
   componentDidMount = async () => {
     const { getProductList } = this;
     await getProductList();
+    scrollRestorer();
   };
 
   getProducts = () => {
@@ -32,7 +34,7 @@ class Products extends Component {
     if (!products) return <div>spinner</div>;
 
     return (
-      <ul id="product-list">
+      <ul className={cn("list")}>
         {products.map(({ description, params, price, name, img, _id }) => (
           <Product {...{ key: _id, description, name, img, params, price }} />
         ))}
@@ -54,9 +56,13 @@ class Products extends Component {
     const { getProducts, updateDB } = this;
 
     return (
-      <div id="products">
+      <div className={cn("products")}>
         <CartPrice />
-        {/*<button onClick={updateDB}>refresh product list</button>*/}
+        {/*
+          <button className={cn("db-update-btn")} onClick={updateDB}>
+            refresh product list
+          </button>
+        */}
         {getProducts()}
       </div>
     );
