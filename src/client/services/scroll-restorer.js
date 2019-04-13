@@ -1,5 +1,7 @@
-const url = "http://localhost:8080/#/products",
-	timeout = 1000;
+const url = PROD_MODE
+		? "https://fewed.github.io/MERN-web-shop/#/products"
+		: "http://localhost:8080/#/products",
+	timeout = 200;
 
 const scrollRestorer = () => {
 	const { MERNwebShop = JSON.stringify({ position: 0 }) } = localStorage;
