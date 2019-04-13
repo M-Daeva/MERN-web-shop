@@ -4,7 +4,7 @@ $btn-size: 50px;
   color: black;
   background-color: #e0d8d3;
   padding: 10px 0;
-  width: 50vw;
+  width: 90vw;
   margin: 0 auto;
 }
 
@@ -30,15 +30,17 @@ $btn-size: 50px;
   &:active {
     outline: none;
   }
-
-  &:hover {
-    cursor: pointer;
-    background-color: lime;
-  }
 }
 
 .info {
   display: inline-block;
   margin-top: 10px;
   font-size: 20px;
+}
+
+@media (min-width: 900px) {
+  .btn:hover {
+    cursor: pointer;
+    background-color: lime;
+  }
 }

@@ -1,3 +1,4 @@
+import l from "../../services/log";
 import React, { Component } from "react";
 import CartControls from "../cart-controls";
 import styles from "./product.scss";
@@ -8,7 +9,7 @@ class Product extends Component {
   state = {};
   render() {
     const {
-      props: { description, name, img, params, price }
+      props: { description, name, img, params, price, id, priceUp }
     } = this;
 
     return (
@@ -17,7 +18,7 @@ class Product extends Component {
         <p className={cn("description")}>{description}</p>
         <img src={img} alt={description} />
         <p className={cn("price")}>{`${price} коп.`}</p>
-        <CartControls />
+        <CartControls {...{ id, price, priceUp }} />
       </li>
     );
   }

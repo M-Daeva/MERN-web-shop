@@ -7,6 +7,18 @@ const cn = cnInit(styles);
 class CartControls extends Component {
   state = { number: 0 };
 
+  sendPrice = () => {
+    const {
+      props: { id, price, priceUp },
+      state: { number }
+    } = this;
+
+    priceUp({
+      id,
+      price: price * number
+    });
+  };
+
   changeQuantity = e => {
     const {
       value,
@@ -20,14 +32,21 @@ class CartControls extends Component {
         val: +value
       }[type];
 
-      if (lookup >= 0) return { number: `${lookup}` };
+      if (lookup >= 0) {
+        return { number: `${lookup}` };
+      }
     });
+
+    setTimeout(() => {
+      this.sendPrice();
+    }, 0);
   };
 
   render() {
     const {
       state: { number },
-      changeQuantity
+      changeQuantity,
+      props: { id, price }
     } = this;
 
     return (

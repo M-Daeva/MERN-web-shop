@@ -1,18 +1,17 @@
 .cartPrice {
+  display: inline-block;
   background-color: rgba($color: black, $alpha: 0.8);
-  width: 50vw;
+  width: 90vw;
   padding: 5px;
-  position: fixed;
+  position: fixed; // ie fix
   position: sticky;
   top: 0;
-  right: 0;
-  margin-left: auto;
 }
 
-.red {
-  color: red;
+.yellow {
+  color: yellow;
 }
 
-.blue {
-  color: blue;
+.white {
+  color: white;
 }

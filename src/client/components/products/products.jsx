@@ -11,7 +11,23 @@ const cn = cnInit(styles);
 const prodSize = 10;
 
 class Products extends Component {
-  state = {};
+  state = { prices: [], totalPrice: 0 };
+
+  priceUp = item => {
+    this.setState(({ prices }) => {
+      let newPrices = [...prices];
+      newPrices = newPrices.filter(({ id }) => id !== item.id);
+      newPrices.push(item);
+
+      // let newTotalPrice = newPrices.reduce(
+      //   (acc, cur) => acc.price + cur.price,
+      //   0
+      // );
+      // if (isNaN(newTotalPrice)) newTotalPrice = newPrices[0].price;
+
+      return { prices: newPrices };
+    });
+  };
 
   getProductList = async () => {
     const { updateDB } = this;
@@ -29,14 +45,26 @@ class Products extends Component {
 
   getProducts = () => {
     const {
-      state: { products }
+      state: { products },
+      priceUp
     } = this;
     if (!products) return <div>spinner</div>;
 
     return (
       <ul className={cn("list")}>
         {products.map(({ description, params, price, name, img, _id }) => (
-          <Product {...{ key: _id, description, name, img, params, price }} />
+          <Product
+            {...{
+              key: _id,
+              id: _id,
+              description,
+              name,
+              img,
+              params,
+              price,
+              priceUp
+            }}
+          />
         ))}
       </ul>
     );
@@ -53,11 +81,15 @@ class Products extends Component {
   };
 
   render() {
-    const { getProducts, updateDB } = this;
+    const {
+      getProducts,
+      updateDB,
+      state: { totalPrice }
+    } = this;
 
     return (
       <div className={cn("products")}>
-        <CartPrice />
+        <CartPrice {...{ totalPrice }} />
         {/*
           <button className={cn("db-update-btn")} onClick={updateDB}>
             refresh product list

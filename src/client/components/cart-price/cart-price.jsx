@@ -5,11 +5,11 @@ import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 class CartPrice extends Component {
-  state = { color: "blue", number: 0 };
+  state = { color: "white", number: 0 };
 
   handler = () => {
     this.setState(({ color }) => {
-      const res = color === "red" ? "blue" : "red";
+      const res = color === "yellow" ? "white" : "yellow";
       return { color: res };
     });
   };
@@ -17,12 +17,13 @@ class CartPrice extends Component {
   render() {
     const {
       state: { color, number },
+      props: { totalPrice },
       handler
     } = this;
 
     return (
       <h2 onClick={handler} className={cn("cartPrice", color)}>
-        Товаров в корзине на сумму {number} коп.
+        Товаров в корзине на сумму {totalPrice} коп.
       </h2>
     );
   }
