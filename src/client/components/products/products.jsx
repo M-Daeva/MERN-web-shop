@@ -10,59 +10,58 @@ const cn = cnInit(styles);
 
 const prodSize = 10;
 
+const copy = val => JSON.parse(JSON.stringify(val));
+
 class Products extends Component {
-  state = { prices: [], totalPrice: 0 };
+  state = {};
 
-  priceUp = item => {
-    this.setState(({ prices }) => {
-      let newPrices = [...prices];
-      newPrices = newPrices.filter(({ id }) => id !== item.id);
-      newPrices.push(item);
-
-      // let newTotalPrice = newPrices.reduce(
-      //   (acc, cur) => acc.price + cur.price,
-      //   0
-      // );
-      // if (isNaN(newTotalPrice)) newTotalPrice = newPrices[0].price;
-
-      return { prices: newPrices };
+  updateProduct = newProduct => {
+    this.setState(({ products }) => {
+      let mirror = copy(products);
+      mirror = mirror.map(product => {
+        if (product.id !== newProduct.id) return product;
+        return newProduct;
+      });
+      return { products: mirror };
     });
   };
 
-  getProductList = async () => {
+  createProductList = async () => {
     const { updateDB } = this;
     let products = await get("/db", "products");
     if (!products.length) await updateDB();
     if (prodSize) products = products.slice(0, prodSize);
+    products = products.map(product => {
+      product.quantity = 0;
+      product.id = product._id;
+      delete product._id;
+      delete product.__v;
+      return product;
+    });
     this.setState({ products });
   };
 
   componentDidMount = async () => {
-    const { getProductList } = this;
-    await getProductList();
+    const { createProductList } = this;
+    await createProductList();
     scrollRestorer();
   };
 
-  getProducts = () => {
+  renderProductList = () => {
     const {
       state: { products },
-      priceUp
+      updateProduct
     } = this;
     if (!products) return <div>spinner</div>;
 
     return (
       <ul className={cn("list")}>
-        {products.map(({ description, params, price, name, img, _id }) => (
+        {products.map(product => (
           <Product
             {...{
-              key: _id,
-              id: _id,
-              description,
-              name,
-              img,
-              params,
-              price,
-              priceUp
+              key: product.id,
+              ...product,
+              updateProduct
             }}
           />
         ))}
@@ -71,10 +70,10 @@ class Products extends Component {
   };
 
   updateDB = async () => {
-    const { getProductList } = this;
+    const { createProductList } = this;
     const res = await all("/grabber");
     l(res);
-    getProductList();
+    createProductList();
     //  const res = await add("/telegram", data);
     // const res = await all("/users", data);
     // const res = await get("/db", "users");
@@ -82,20 +81,20 @@ class Products extends Component {
 
   render() {
     const {
-      getProducts,
+      renderProductList,
       updateDB,
-      state: { totalPrice }
+      state: { products }
     } = this;
 
     return (
       <div className={cn("products")}>
-        <CartPrice {...{ totalPrice }} />
+        <CartPrice {...{ products }} />
         {/*
           <button className={cn("db-update-btn")} onClick={updateDB}>
             refresh product list
           </button>
         */}
-        {getProducts()}
+        {renderProductList()}
       </div>
     );
   }

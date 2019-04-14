@@ -9,7 +9,17 @@ class Product extends Component {
   state = {};
   render() {
     const {
-      props: { description, name, img, params, price, id, priceUp }
+      props,
+      props: {
+        description,
+        name,
+        img,
+        params,
+        price,
+        id,
+        quantity,
+        updateProduct
+      }
     } = this;
 
     return (
@@ -18,7 +28,7 @@ class Product extends Component {
         <p className={cn("description")}>{description}</p>
         <img src={img} alt={description} />
         <p className={cn("price")}>{`${price} коп.`}</p>
-        <CartControls {...{ id, price, priceUp }} />
+        <CartControls {...props} />
       </li>
     );
   }

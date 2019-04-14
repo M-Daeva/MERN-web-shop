@@ -5,25 +5,22 @@ import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 class CartPrice extends Component {
-  state = { color: "white", number: 0 };
-
-  handler = () => {
-    this.setState(({ color }) => {
-      const res = color === "yellow" ? "white" : "yellow";
-      return { color: res };
-    });
+  calcTotalPrice = () => {
+    const {
+      props: { products = [] }
+    } = this;
+    return products.reduce(
+      (acc, { price, quantity }) => acc + price * quantity,
+      0
+    );
   };
 
   render() {
-    const {
-      state: { color, number },
-      props: { totalPrice },
-      handler
-    } = this;
+    const { calcTotalPrice } = this;
 
     return (
-      <h2 onClick={handler} className={cn("cartPrice", color)}>
-        Товаров в корзине на сумму {totalPrice} коп.
+      <h2 className={cn("cartPrice white")}>
+        Товаров в корзине на сумму {calcTotalPrice()} коп.
       </h2>
     );
   }

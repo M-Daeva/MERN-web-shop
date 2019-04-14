@@ -5,48 +5,32 @@ import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 class CartControls extends Component {
-  state = { number: 0 };
-
-  sendPrice = () => {
-    const {
-      props: { id, price, priceUp },
-      state: { number }
-    } = this;
-
-    priceUp({
-      id,
-      price: price * number
-    });
-  };
-
   changeQuantity = e => {
     const {
       value,
       dataset: { type }
     } = e.target;
 
-    this.setState(({ number }) => {
-      const lookup = {
-        dec: +number - 1,
-        inc: +number + 1,
-        val: +value
-      }[type];
+    let {
+      props,
+      props: { quantity, updateProduct }
+    } = this;
 
-      if (lookup >= 0) {
-        return { number: `${lookup}` };
-      }
-    });
+    const lookup = {
+      dec: +quantity - 1,
+      inc: +quantity + 1,
+      val: +value
+    }[type];
 
-    setTimeout(() => {
-      this.sendPrice();
-    }, 0);
+    if (lookup >= 0) quantity = `${lookup}`;
+
+    updateProduct({ ...props, quantity });
   };
 
   render() {
     const {
-      state: { number },
       changeQuantity,
-      props: { id, price }
+      props: { id, price, quantity, updateProduct }
     } = this;
 
     return (
@@ -59,14 +43,14 @@ class CartControls extends Component {
             data-type="val"
             type="number"
             className={cn("input")}
-            value={number}
+            value={quantity}
             onChange={changeQuantity}
           />
           <button data-type="inc" className={cn("btn")}>
             +
           </button>
         </div>
-        <span className={cn("info")}>В корзине {number} шт.</span>
+        <span className={cn("info")}>В корзине {quantity} шт.</span>
       </div>
     );
   }
