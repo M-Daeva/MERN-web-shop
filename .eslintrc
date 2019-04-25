@@ -5,7 +5,8 @@
     "amd": true,
     "commonjs": true,
     "node": true,
-    "browser": true
+    "browser": true,
+    "es6": true
   },
   "globals": {
     "window": true,
@@ -13,6 +14,6 @@
     "console": true
   },
   "rules": {
-    "no-console":"off"
+    "no-console": "off"
   }
 }

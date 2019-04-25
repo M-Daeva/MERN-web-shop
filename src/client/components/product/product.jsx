@@ -1,37 +1,28 @@
 import l from "../../services/log";
-import React, { Component } from "react";
+import React from "react";
+import { connect } from "react-redux";
+import actions, { getByID } from "../../state";
 import CartControls from "../cart-controls";
 import styles from "./product.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
-class Product extends Component {
-  state = {};
-  render() {
-    const {
-      props,
-      props: {
-        description,
-        name,
-        img,
-        params,
-        price,
-        id,
-        quantity,
-        updateProduct
-      }
-    } = this;
+const Product = props => {
+  const { children: id, products } = props,
+    { name, description, price, img } = getByID(products, id);
 
-    return (
-      <li className={cn("item")}>
-        <h2>{name}</h2>
-        <p className={cn("description")}>{description}</p>
-        <img src={img} alt={description} />
-        <p className={cn("price")}>{`${price} коп.`}</p>
-        <CartControls {...props} />
-      </li>
-    );
-  }
-}
+  return (
+    <li className={cn("item")}>
+      <h2>{name}</h2>
+      <p className={cn("description")}>{description}</p>
+      <img src={img} alt={description} />
+      <p className={cn("price")}>{`${price} коп.`}</p>
+      <CartControls>{id}</CartControls>
+    </li>
+  );
+};
 
-export default Product;
+export default connect(
+  state => state,
+  actions
+)(Product);

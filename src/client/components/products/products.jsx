@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import actions from "../../state";
 import { all, add, get } from "../../services/request";
 import l from "../../services/log";
 import Product from "../product";
@@ -10,24 +12,12 @@ const cn = cnInit(styles);
 
 const prodSize = 10;
 
-const copy = val => JSON.parse(JSON.stringify(val));
-
 class Products extends Component {
-  state = {};
-
-  updateProduct = newProduct => {
-    this.setState(({ products }) => {
-      let mirror = copy(products);
-      mirror = mirror.map(product => {
-        if (product.id !== newProduct.id) return product;
-        return newProduct;
-      });
-      return { products: mirror };
-    });
-  };
-
   createProductList = async () => {
-    const { updateDB } = this;
+    const {
+      updateDB,
+      props: { UPDATE }
+    } = this;
     let products = await get("/db", "products");
     if (!products.length) await updateDB();
     if (prodSize) products = products.slice(0, prodSize);
@@ -38,7 +28,7 @@ class Products extends Component {
       delete product.__v;
       return product;
     });
-    this.setState({ products });
+    UPDATE(products);
   };
 
   componentDidMount = async () => {
@@ -48,22 +38,13 @@ class Products extends Component {
   };
 
   renderProductList = () => {
-    const {
-      state: { products },
-      updateProduct
-    } = this;
+    const { products } = this.props;
     if (!products) return <div>spinner</div>;
 
     return (
       <ul className={cn("list")}>
-        {products.map(product => (
-          <Product
-            {...{
-              key: product.id,
-              ...product,
-              updateProduct
-            }}
-          />
+        {products.map(({ id }) => (
+          <Product key={id}>{id}</Product>
         ))}
       </ul>
     );
@@ -83,7 +64,7 @@ class Products extends Component {
     const {
       renderProductList,
       updateDB,
-      state: { products }
+      props: { products }
     } = this;
 
     return (
@@ -92,12 +73,14 @@ class Products extends Component {
         {/*
           <button className={cn("db-update-btn")} onClick={updateDB}>
             refresh product list
-          </button>
-        */}
+          </button>*/}
         {renderProductList()}
       </div>
     );
   }
 }
 
-export default Products;
+export default connect(
+  state => state,
+  actions
+)(Products);

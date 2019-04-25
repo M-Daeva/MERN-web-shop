@@ -1,20 +1,21 @@
 import l from "../../services/log";
-import React, { Component } from "react";
+import React from "react";
+import { connect } from "react-redux";
+import actions, { getByID } from "../../state";
 import styles from "./cart-controls.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
-class CartControls extends Component {
-  changeQuantity = e => {
+const CartControls = props => {
+  const { children: id, products, UPDATE } = props,
+    product = getByID(products, id);
+  let { quantity } = product;
+
+  const changeQuantity = e => {
     const {
       value,
       dataset: { type }
     } = e.target;
-
-    let {
-      props,
-      props: { quantity, updateProduct }
-    } = this;
 
     const lookup = {
       dec: +quantity - 1,
@@ -24,36 +25,36 @@ class CartControls extends Component {
 
     if (lookup >= 0) quantity = `${lookup}`;
 
-    updateProduct({ ...props, quantity });
+    const newProduct = { ...product, quantity };
+    const newProducts = products.map(product => {
+      return product.id !== newProduct.id ? product : newProduct;
+    });
+    UPDATE(newProducts);
   };
 
-  render() {
-    const {
-      changeQuantity,
-      props: { id, price, quantity, updateProduct }
-    } = this;
-
-    return (
-      <div className={cn("controls")} onClick={changeQuantity}>
-        <div>
-          <button data-type="dec" className={cn("btn")}>
-            -
-          </button>
-          <input
-            data-type="val"
-            type="number"
-            className={cn("input")}
-            value={quantity}
-            onChange={changeQuantity}
-          />
-          <button data-type="inc" className={cn("btn")}>
-            +
-          </button>
-        </div>
-        <span className={cn("info")}>В корзине {quantity} шт.</span>
+  return (
+    <div className={cn("controls")} onClick={changeQuantity}>
+      <div>
+        <button data-type="dec" className={cn("btn")}>
+          -
+        </button>
+        <input
+          data-type="val"
+          type="number"
+          className={cn("input")}
+          value={quantity}
+          onChange={changeQuantity}
+        />
+        <button data-type="inc" className={cn("btn")}>
+          +
+        </button>
       </div>
-    );
-  }
-}
+      <span className={cn("info")}>В корзине {quantity} шт.</span>
+    </div>
+  );
+};
 
-export default CartControls;
+export default connect(
+  state => state,
+  actions
+)(CartControls);
