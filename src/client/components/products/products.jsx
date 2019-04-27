@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import actions from "../../state";
 import { all, add, get } from "../../services/request";
@@ -12,12 +12,10 @@ const cn = cnInit(styles);
 
 const prodSize = 10;
 
-class Products extends Component {
-  createProductList = async () => {
-    const {
-      updateDB,
-      props: { UPDATE }
-    } = this;
+const Products = props => {
+  const { products, UPDATE } = props;
+
+  const createProductList = async () => {
     let products = await get("/db", "products");
     if (!products.length) await updateDB();
     if (prodSize) products = products.slice(0, prodSize);
@@ -31,27 +29,25 @@ class Products extends Component {
     UPDATE(products);
   };
 
-  componentDidMount = async () => {
-    const { createProductList } = this;
-    await createProductList();
-    scrollRestorer();
-  };
+  useEffect(() => {
+    (async () => {
+      await createProductList();
+      scrollRestorer();
+    })();
+  }, []);
 
-  renderProductList = () => {
-    const { products } = this.props;
+  const renderProductList = () => {
     if (!products) return <div>spinner</div>;
-
     return (
       <ul className={cn("list")}>
         {products.map(({ id }) => (
-          <Product key={id}>{id}</Product>
+          <Product {...{ key: id, id }} />
         ))}
       </ul>
     );
   };
 
-  updateDB = async () => {
-    const { createProductList } = this;
+  const updateDB = async () => {
     const res = await all("/grabber");
     l(res);
     createProductList();
@@ -60,25 +56,17 @@ class Products extends Component {
     // const res = await get("/db", "users");
   };
 
-  render() {
-    const {
-      renderProductList,
-      updateDB,
-      props: { products }
-    } = this;
-
-    return (
-      <div className={cn("products")}>
-        <CartPrice {...{ products }} />
-        {/*
+  return (
+    <div className={cn("products")}>
+      <CartPrice {...{ products }} />
+      {/*
           <button className={cn("db-update-btn")} onClick={updateDB}>
             refresh product list
           </button>*/}
-        {renderProductList()}
-      </div>
-    );
-  }
-}
+      {renderProductList()}
+    </div>
+  );
+};
 
 export default connect(
   state => state,

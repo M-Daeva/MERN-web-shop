@@ -8,7 +8,7 @@ import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 const Product = props => {
-  const { children: id, products } = props,
+  const { id, products } = props,
     { name, description, price, img } = getByID(products, id);
 
   return (
@@ -17,7 +17,7 @@ const Product = props => {
       <p className={cn("description")}>{description}</p>
       <img src={img} alt={description} />
       <p className={cn("price")}>{`${price} коп.`}</p>
-      <CartControls>{id}</CartControls>
+      <CartControls {...{ id }} />
     </li>
   );
 };

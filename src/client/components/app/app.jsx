@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Route,
   BrowserRouter as Router,
@@ -17,24 +17,21 @@ import styles from "./app.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
-class App extends Component {
-  state = {};
-  render() {
-    return (
-      <Provider store={store}>
-        <HashRouter>
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={Main} />
-            <Route path="/products" component={Products} />
-            <Route path="/cart" component={Cart} />
-            <Route path="/order" component={Order} />
-            <Redirect to="/" />
-          </Switch>
-        </HashRouter>
-      </Provider>
-    );
-  }
-}
+const App = () => {
+  return (
+    <Provider store={store}>
+      <HashRouter>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Main} />
+          <Route path="/products" component={Products} />
+          <Route path="/cart" component={Cart} />
+          <Route path="/order" component={Order} />
+          <Redirect to="/" />
+        </Switch>
+      </HashRouter>
+    </Provider>
+  );
+};
 
 export default App;

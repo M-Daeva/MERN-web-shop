@@ -7,7 +7,7 @@ import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 const CartControls = props => {
-  const { children: id, products, UPDATE } = props,
+  const { id, products, UPDATE } = props,
     product = getByID(products, id);
   let { quantity } = product;
 
