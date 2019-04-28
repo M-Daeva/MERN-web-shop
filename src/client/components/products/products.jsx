@@ -11,7 +11,7 @@ import styles from "./products.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
-const prodSize = undefined;
+const prodSize = 10;
 
 const Products = props => {
   const { products, isLoading, UPDATE_PRODUCTS, TOGGLE_SPINNER } = props;

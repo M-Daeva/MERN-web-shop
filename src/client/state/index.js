@@ -2,15 +2,17 @@ import { createStore } from "redux";
 
 const getByID = (arr, _id) => arr.filter(({ id }) => id === _id)[0];
 
-const addLookup = (lookup, type) => {
+const updateState = (action) => (...actionConstants) => {
+	const { type, payload } = action;
+
 	if (!reducer.actions) {
-		reducer.actions = Object.keys(lookup).reduce((acc, cur) => {
+		reducer.actions = actionConstants.reduce((acc, cur) => {
 			acc[cur] = (payload) => ({ type: cur, payload });
 			return acc;
 		}, {});
 	}
 
-	return lookup[type];
+	return actionConstants.includes(type) ? payload : {};
 };
 
 const getStore = () => {
@@ -28,17 +30,13 @@ const initialState = {
 };
 
 function reducer(state = initialState, action = {}) {
-	const { type, payload } = action;
-
-	const lookup = addLookup(
-		{
-			UPDATE_PRODUCTS: payload,
-			TOGGLE_SPINNER: payload,
-		},
-		type,
+	const newState = updateState(action)(
+		"UPDATE_PRODUCTS",
+		"TOGGLE_SPINNER",
+		"REMOVE_FILE",
 	);
 
-	return { ...state, ...lookup };
+	return { ...state, ...newState };
 }
 
 const { store, actions } = getStore();
