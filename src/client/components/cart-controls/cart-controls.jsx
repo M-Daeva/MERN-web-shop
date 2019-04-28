@@ -7,7 +7,7 @@ import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 const CartControls = props => {
-  const { id, products, UPDATE } = props,
+  const { id, products, UPDATE_PRODUCTS } = props,
     product = getByID(products, id);
   let { quantity } = product;
 
@@ -29,7 +29,7 @@ const CartControls = props => {
     const newProducts = products.map(product => {
       return product.id !== newProduct.id ? product : newProduct;
     });
-    UPDATE(newProducts);
+    UPDATE_PRODUCTS({ products: newProducts });
   };
 
   return (

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import actions from "../../state";
 import { all, add, get } from "../../services/request";
 import l from "../../services/log";
+import Spinner from "../spinner";
 import Product from "../product";
 import CartPrice from "../cart-price";
 import scrollRestorer from "../../services/scroll-restorer";
@@ -10,10 +11,10 @@ import styles from "./products.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
-const prodSize = 10;
+const prodSize = undefined;
 
 const Products = props => {
-  const { products, UPDATE } = props;
+  const { products, isLoading, UPDATE_PRODUCTS, TOGGLE_SPINNER } = props;
 
   const createProductList = async () => {
     let products = await get("/db", "products");
@@ -26,18 +27,19 @@ const Products = props => {
       delete product.__v;
       return product;
     });
-    UPDATE(products);
+    UPDATE_PRODUCTS({ products });
   };
 
   useEffect(() => {
     (async () => {
       await createProductList();
+      TOGGLE_SPINNER({ isLoading: false });
       scrollRestorer();
     })();
   }, []);
 
   const renderProductList = () => {
-    if (!products) return <div>spinner</div>;
+    if (isLoading) return <Spinner />;
     return (
       <ul className={cn("list")}>
         {products.map(({ id }) => (

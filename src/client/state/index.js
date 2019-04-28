@@ -24,20 +24,21 @@ const getStore = () => {
 
 const initialState = {
 	products: [],
+	isLoading: true,
 };
 
 function reducer(state = initialState, action = {}) {
-	const { products } = state;
 	const { type, payload } = action;
 
 	const lookup = addLookup(
 		{
-			UPDATE: payload,
+			UPDATE_PRODUCTS: payload,
+			TOGGLE_SPINNER: payload,
 		},
 		type,
 	);
 
-	return { products: lookup === undefined ? products : lookup };
+	return { ...state, ...lookup };
 }
 
 const { store, actions } = getStore();
