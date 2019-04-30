@@ -15,11 +15,9 @@ const CartPrice = props => {
 
   useEffect(() => {
     (async () => {
-      const fp = ls.get();
-      const { fingerprint = "empty" } = fp;
+      const { fingerprint } = ls.get();
       const res = await add("/fingerprint", { fingerprint });
-      fp.fingerprint = res;
-      ls.set(fp);
+      ls.set({ fingerprint: res });
       l(localStorage);
     })();
   }, []);

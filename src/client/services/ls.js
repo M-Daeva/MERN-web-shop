@@ -1,8 +1,8 @@
-const key = "MERNwebShop";
+const prop = "MERNwebShop";
 
-const set = (value) => localStorage.setItem(key, JSON.stringify(value));
+const set = (obj) => localStorage.setItem(prop, JSON.stringify({ ...get(), ...obj }));
 
-const get = () => JSON.parse(localStorage.getItem(key)) || {};
+const get = () => JSON.parse(localStorage.getItem(prop)) || {};
 
 const ls = { get, set };
 

@@ -6,15 +6,13 @@ const url = PROD_MODE
 	timeout = 200;
 
 const scrollRestorer = () => {
-	const data = ls.get();
-	const { position = 0 } = data;
+	const { position = 0 } = ls.get();
 	scrollTo(0, position);
 
 	const getPos = () => {
 		if (location.href !== url) return;
 		setTimeout(() => {
-			data.position = pageYOffset;
-			ls.set(data);
+			ls.set({ position: Math.round(pageYOffset) });
 			getPos();
 		}, timeout);
 	};
