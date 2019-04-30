@@ -1,0 +1,48 @@
+$btn-size: 30px;
+
+.popup-order {
+  border: 1px solid black;
+  width: 90vw;
+  margin: 20px auto 0;
+  padding: 10px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.input {
+  display: block;
+  margin: 5px auto 0;
+  text-align: center;
+  width: 50%;
+  width: calc(2 * #{$btn-size});
+  box-sizing: border-box;
+}
+
+.input,
+.btn {
+  text-align: center;
+  outline: none;
+  border: 1px solid black;
+  height: $btn-size;
+  width: 50%;
+  font-size: calc(#{$btn-size} / 2);
+}
+
+.btn {
+  margin-top: 10px;
+  background-color: white;
+  width: calc(3 * #{$btn-size});
+
+  &:hover,
+  &:active {
+    outline: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .btn:hover {
+    cursor: pointer;
+    background-color: lime;
+  }
+}

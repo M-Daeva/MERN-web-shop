@@ -50,17 +50,22 @@
     "@babel/plugin-proposal-class-properties": "^7.2.3",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-dust": "^0.1.5",
+    "is-empty": "^1.2.0",
     "jcm-classnames": "^1.0.0",
     "jsdom": "^14.0.0",
+    "jsonwebtoken": "^8.5.1",
     "jsx": "^0.9.89",
     "knex": "^0.16.3",
     "mongoose": "^5.4.1",
     "nodemailer": "^4.7.0",
     "nodemailer-smtp-transport": "^2.7.4",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -68,6 +73,7 @@
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.1",
-    "sms_ru": "0.0.1"
+    "sms_ru": "0.0.1",
+    "validator": "^10.11.0"
   }
 }
