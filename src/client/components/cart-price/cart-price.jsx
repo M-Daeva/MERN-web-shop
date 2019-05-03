@@ -27,6 +27,7 @@ const CartPrice = props => {
       ({ fingerprint } = await ax2.post("/fingerprint", {
         fingerprint
       }));
+      l(fingerprint, "from server");
       ls.set({ fingerprint });
       const { cart: nCart, city: nCity } = await ax2.get("/users", {
         fingerprint
