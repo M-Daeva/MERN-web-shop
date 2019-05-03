@@ -1,7 +1,7 @@
 const express = require("express"),
   router = express.Router(),
-  { fpPost, fpGet } = require("../controllers/fingerprint");
+  { fpPost } = require("../controllers/fingerprint");
 
-router.post("/", fpPost).get("/", fpGet);
+router.post("/", fpPost);
 
 module.exports = router;

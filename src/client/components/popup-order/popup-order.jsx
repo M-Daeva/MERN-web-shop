@@ -1,6 +1,7 @@
 import React from "react";
 import l from "../../services/log";
-import { add } from "../../services/request";
+import ls from "../../services/ls";
+import { ax2 } from "../../services/request";
 import styles from "./popup-order.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
@@ -8,14 +9,18 @@ const cn = cnInit(styles);
 const PopupOrder = () => {
   const submit = async e => {
     e.preventDefault();
+
+    const { fingerprint } = ls.get();
+
     const user = {
       login: "Rickardo",
       password: "rtui",
       email: "yu@io.ru",
       cart: [1, 5, 7],
-      city: "London"
+      city: "London",
+      fingerprint
     };
-    const res = await add("/db/users", user);
+    const res = await ax2.post("/db/users", user);
     l(res);
   };
 

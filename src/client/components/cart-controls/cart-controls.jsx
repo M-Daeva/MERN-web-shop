@@ -1,4 +1,6 @@
 import l from "../../services/log";
+import ls from "../../services/ls";
+import { ax2 } from "../../services/request";
 import React from "react";
 import { connect } from "react-redux";
 import actions, { getByID } from "../../state";
@@ -7,9 +9,10 @@ import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 const CartControls = props => {
-  const { id, products, UPDATE_PRODUCTS } = props,
+  const { id, products, user, UPDATE_PRODUCTS, UPDATE_CART } = props,
     product = getByID(products, id);
-  let { quantity } = product;
+
+  let quantity = getByID(user.cart, id, { quantity: 0 });
 
   const changeQuantity = e => {
     const {
@@ -23,14 +26,31 @@ const CartControls = props => {
       val: +value
     }[type];
 
+    // type convertion fixes input bug
     if (lookup >= 0) quantity = `${lookup}`;
+
+    const { cart } = user;
+    const oldProd = cart.filter(item => item.id !== id);
+    const newProd = cart
+      .filter(item => item.id === id)
+      .map(item => ({ ...item, ...{ quantity } }));
+    if (!newProd.length) newProd.push({ id, quantity });
+    const total = [...oldProd, ...newProd];
 
     const newProduct = { ...product, quantity };
     const newProducts = products.map(product => {
       return product.id !== newProduct.id ? product : newProduct;
     });
+
+    const newUser = { ...user, ...{ cart: total } };
+
+    const { fingerprint } = ls.get();
+    ax2.put("/users", { ...newUser, fingerprint });
+    UPDATE_CART({ user: newUser });
     UPDATE_PRODUCTS({ products: newProducts });
   };
+
+  // l(props.user.cart);
 
   return (
     <div className={cn("controls")} onClick={changeQuantity}>

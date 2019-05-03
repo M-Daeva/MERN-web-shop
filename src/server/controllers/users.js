@@ -10,7 +10,9 @@ const userAdd = (req, res, next) => {
 };
 
 const userGet = (req, res, next) => {
-  User.findOne({ _id: req.params.id }, (err, user) => {
+  const { fingerprint } = req.query;
+
+  User.findOne({ fingerprint }, (err, user) => {
     if (err) return next(err);
     res.send(user);
   });
@@ -24,12 +26,24 @@ const userGetAll = (req, res, next) => {
 };
 
 const userUpdate = (req, res, next) => {
+  const { fingerprint, city, cart } = req.body;
+
   User.findOneAndUpdate(
-    { _id: req.params.id },
-    { $set: req.body },
-    (err, user) => {
-      if (err) return next(err);
-      res.send("updated");
+    { fingerprint },
+    {
+      $set: { cart }
+    },
+    () => {
+      User.findOneAndUpdate(
+        { fingerprint },
+        {
+          $pull: { cart: { quantity: "0" } }
+        },
+        (err, user) => {
+          if (err) return next(err);
+          res.send(user.cart);
+        }
+      );
     }
   );
 };

@@ -10,12 +10,12 @@ const express = require("express"),
   } = require("../controllers/users");
 
 router
-  .get("/", userGetAll)
+  .get("/", userGet)
   .post("/", userAdd)
   .delete("/", userDeleteAll)
+  .put("/", userUpdate)
 
-  .get("/:id", userGet)
-  .put("/:id", userUpdate)
+  //  .get("/:id", userGet)
   .delete("/:id", userDelete);
 
 module.exports = router;

@@ -16,7 +16,7 @@ const Product = props => {
       <h2>{name}</h2>
       <p className={cn("description")}>{description}</p>
       <img src={img} alt={description} />
-      <p className={cn("price")}>{`${price} коп.`}</p>
+      <p className={cn("price")}>{`${price} руб.`}</p>
       <CartControls {...{ id }} />
     </li>
   );

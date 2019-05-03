@@ -1,6 +1,11 @@
 import { createStore } from "redux";
 
-const getByID = (arr, _id) => arr.filter(({ id }) => id === _id)[0];
+const getByID = (arr, id, prop) => {
+	const elem = arr.find(({ id: _id }) => _id === id);
+	if (prop === undefined) return elem || {};
+	const [key, value] = Object.entries(prop)[0];
+	return elem ? elem[key] : value;
+};
 
 const updateState = (action) => (...actionConstants) => {
 	const { type, payload } = action;
@@ -26,14 +31,19 @@ const getStore = () => {
 
 const initialState = {
 	products: [],
+	user: {
+		cart: [],
+		city: "",
+	},
 	isLoading: true,
 };
 
 function reducer(state = initialState, action = {}) {
 	const newState = updateState(action)(
 		"UPDATE_PRODUCTS",
+		"UPDATE_CART",
+		"UPDATE_CITY",
 		"TOGGLE_SPINNER",
-		"REMOVE_FILE",
 	);
 
 	return { ...state, ...newState };
