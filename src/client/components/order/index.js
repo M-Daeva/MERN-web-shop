@@ -1,2 +1,1 @@
-import Order from "./order";
-export default Order;
+export { default } from "./order";

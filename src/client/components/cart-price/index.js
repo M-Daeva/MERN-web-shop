@@ -1,2 +1,1 @@
-import CartPrice from "./cart-price";
-export default CartPrice;
+export { default } from "./cart-price";

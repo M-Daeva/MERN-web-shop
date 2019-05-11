@@ -7,7 +7,7 @@ const UserSchema = new Schema({
   cart: { type: Array },
   city: { type: String },
   email: { type: String },
-  fingerprint: { type: String, required: true }
+  fingerprint: { type: String }
 });
 
 module.exports = mongoose.model("User", UserSchema);

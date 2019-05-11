@@ -1,2 +1,1 @@
-import PopupOrder from "./popup-order";
-export default PopupOrder;
+export { default } from "./popup-order";

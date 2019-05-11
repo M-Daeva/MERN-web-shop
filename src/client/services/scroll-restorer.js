@@ -1,5 +1,5 @@
 import ls from "./ls";
-import { restURL } from "../../../config";
+import { restURL } from "./config";
 
 const timeout = 200;
 

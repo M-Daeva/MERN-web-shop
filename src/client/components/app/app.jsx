@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Route,
   BrowserRouter as Router,
@@ -13,11 +13,24 @@ import Cart from "../cart";
 import Navbar from "../navbar";
 import { Provider } from "react-redux";
 import { store } from "../../state";
+import ls from "../../services/ls";
+import { ax2 } from "../../services/request";
+import l from "../../services/log";
 import styles from "./app.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 const App = () => {
+  useEffect(() => {
+    (async () => {
+      let { fingerprint } = ls.get();
+      ({ fingerprint } = await ax2.post("/fingerprint", {
+        fingerprint
+      }));
+      ls.set({ fingerprint });
+    })();
+  }, []);
+
   return (
     <Provider store={store}>
       <HashRouter>

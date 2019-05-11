@@ -24,19 +24,14 @@ const CartPrice = props => {
   useEffect(() => {
     (async () => {
       let { fingerprint } = ls.get();
-      ({ fingerprint } = await ax2.post("/fingerprint", {
-        fingerprint
-      }));
-      l(fingerprint, "from server");
-      ls.set({ fingerprint });
-      const { cart: nCart, city: nCity } = await ax2.get("/users", {
+      const { cart, city } = await ax2.get("/users", {
         fingerprint
       });
-      UPDATE_CART({ user: { cart: nCart, city: nCity } });
+      UPDATE_CART({ user: { cart, city } });
     })();
   }, []);
 
-  l(props.user.cart.map(({ quantity }) => quantity));
+  l(cart.map(({ quantity }) => quantity));
 
   return (
     <h2 className={cn("cartPrice white")}>

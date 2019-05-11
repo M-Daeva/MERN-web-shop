@@ -1,2 +1,1 @@
-import Product from "./product";
-export default Product;
+export { default } from "./product";

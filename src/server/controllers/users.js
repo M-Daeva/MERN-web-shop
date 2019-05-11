@@ -1,7 +1,8 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-//const jS = require("config").get("jwtSecret");
+const { jwtSecret } = require("config");
 const User = require("../models/users");
+const l = console.log.bind(console);
 
 const userAdd = (req, res, next) => {
   const user = new User(req.body);
@@ -29,21 +30,43 @@ const userGetAll = (req, res, next) => {
 };
 
 const userAuth = (req, res, next) => {
-  const { login, password, email, cart, city, fingerprint } = req.body;
-
-  User.findOne({ login }, (err, user) => {
+  const { login, password, email, fingerprint } = req.body;
+  User.findOne({ login }, async (err, user) => {
     if (err) return next(err);
-    if (user) res.send(user);
-    else {
+
+    if (user) {
+      const passMatch = await bcrypt.compare(password, user.password);
+
+      if (passMatch) {
+        jwt.sign({ login }, jwtSecret, { expiresIn: 60 }, (err, token) => {
+          if (err) throw err;
+
+          user.fingerprint = fingerprint;
+          user.save(err => {
+            if (err) throw err;
+
+            const { cart, city } = user;
+            res.send({ token, user: { cart, city } });
+          });
+        });
+      } else {
+        // wrong password
+        res.send("wrong password");
+      }
+    } else {
+      // write login and password
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(password, salt, (err, hash) => {
           if (err) throw err;
-          const newUser = new User({ ...req.body, ...{ password: hash } });
 
-          newUser.save(err => {
-            if (err) return next(err);
-            res.send("added");
-          });
+          User.findOneAndUpdate(
+            { fingerprint },
+            { login, password: hash, email },
+            err => {
+              if (err) throw err;
+              res.send("done");
+            }
+          );
         });
       });
     }

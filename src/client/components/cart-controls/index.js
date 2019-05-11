@@ -1,2 +1,1 @@
-import CartControls from "./cart-controls";
-export default CartControls;
+export { default } from "./cart-controls";

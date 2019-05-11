@@ -35,6 +35,11 @@ const initialState = {
 		cart: [],
 		city: "",
 	},
+	form: {
+		login: "",
+		password: "",
+		email: "",
+	},
 	isLoading: true,
 };
 
@@ -43,6 +48,7 @@ function reducer(state = initialState, action = {}) {
 		"UPDATE_PRODUCTS",
 		"UPDATE_CART",
 		"UPDATE_CITY",
+		"UPDATE_FORM",
 		"TOGGLE_SPINNER",
 	);
 

@@ -50,8 +50,6 @@ const CartControls = props => {
     UPDATE_PRODUCTS({ products: newProducts });
   };
 
-  // l(props.user.cart);
-
   return (
     <div className={cn("controls")} onClick={changeQuantity}>
       <div>
