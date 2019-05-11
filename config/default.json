@@ -1,0 +1,4 @@
+{
+  "dbURL": "mongodb://fewed:26853141q@ds117158.mlab.com:17158/mern-web-shop",
+  "jwtSecret": "MERN webshop"
+}

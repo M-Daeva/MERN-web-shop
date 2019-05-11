@@ -1,5 +1,6 @@
 const mongoose = require("mongoose"),
-  dbURL = "mongodb://fewed:26853141q@ds117158.mlab.com:17158/mern-web-shop";
+  config = require("config"),
+  dbURL = config.get("dbURL");
 
 mongoose.connect(dbURL, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;

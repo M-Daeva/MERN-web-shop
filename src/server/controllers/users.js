@@ -1,3 +1,6 @@
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+//const jS = require("config").get("jwtSecret");
 const User = require("../models/users");
 
 const userAdd = (req, res, next) => {
@@ -22,6 +25,28 @@ const userGetAll = (req, res, next) => {
   User.find((err, users) => {
     if (err) return next(err);
     res.send(users);
+  });
+};
+
+const userAuth = (req, res, next) => {
+  const { login, password, email, cart, city, fingerprint } = req.body;
+
+  User.findOne({ login }, (err, user) => {
+    if (err) return next(err);
+    if (user) res.send(user);
+    else {
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(password, salt, (err, hash) => {
+          if (err) throw err;
+          const newUser = new User({ ...req.body, ...{ password: hash } });
+
+          newUser.save(err => {
+            if (err) return next(err);
+            res.send("added");
+          });
+        });
+      });
+    }
   });
 };
 
@@ -68,5 +93,6 @@ module.exports = {
   userGetAll,
   userUpdate,
   userDelete,
-  userDeleteAll
+  userDeleteAll,
+  userAuth
 };
