@@ -1,7 +1,6 @@
 const { create } = require("axios"),
   { JSDOM } = require("jsdom"),
-  baseURL = "https://www.chipdip.ru",
-  startPage = "/catalog-show/arduino-controllers",
+  { baseURL, startPage } = require("config").grabber,
   ax = create({ baseURL }),
   l = console.log.bind(console);
 

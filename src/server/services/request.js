@@ -1,6 +1,5 @@
-const axios = require("axios");
-
-const baseUrl = "http://localhost:3000"; // webpack mode
+const axios = require("axios"),
+  { baseUrl } = require("config");
 
 async function request(page, method, id = "", data) {
   if (id !== "") id = "/" + id;

@@ -1,9 +1,6 @@
 import axios from "axios";
+import { baseURL } from "../../../config";
 import l from "./log";
-
-const baseURL = PROD_MODE
-	? "https://mern-web-shop.herokuapp.com"
-	: "http://localhost:3000"; // webpack mode
 
 const ax = axios.create({
 	baseURL,

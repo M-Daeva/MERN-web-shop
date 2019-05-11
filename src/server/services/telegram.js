@@ -1,7 +1,6 @@
-const { create } = require("axios");
+const { create } = require("axios"),
+  { token, chatID } = require("config").telegram;
 
-const token = "741106985:AAFV0rcEhYWqcyJ1UU8EuvM2WgEM8yg05jg";
-const chatID = "-327421362";
 const baseURL =
   `https://api.telegram.org/bot${token}` +
   `/sendMessage?chat_id=${chatID}` +
