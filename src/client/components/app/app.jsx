@@ -14,7 +14,7 @@ import Navbar from "../navbar";
 import { Provider } from "react-redux";
 import { store } from "../../state";
 import ls from "../../services/ls";
-import { ax2 } from "../../services/request";
+import { req } from "../../services/request";
 import l from "../../services/log";
 import styles from "./app.scss";
 import cnInit from "jcm-classnames";
@@ -24,7 +24,7 @@ const App = () => {
   useEffect(() => {
     (async () => {
       let { fingerprint } = ls.get();
-      ({ fingerprint } = await ax2.post("/fingerprint", {
+      ({ fingerprint } = await req.post("/fingerprint", {
         fingerprint
       }));
       ls.set({ fingerprint });

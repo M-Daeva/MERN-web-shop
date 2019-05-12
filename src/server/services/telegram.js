@@ -8,7 +8,8 @@ const baseURL =
 
 const ax = create({
   baseURL,
-  headers: { "Content-Type": "application/json" }
+  headers: { "Content-Type": "application/json" },
+  timeout: 1000
 });
 
 module.exports = ax;

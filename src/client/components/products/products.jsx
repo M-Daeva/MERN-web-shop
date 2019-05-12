@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import actions from "../../state";
-import { all, add, get, ax2 } from "../../services/request";
+import { req } from "../../services/request";
 import l from "../../services/log";
 import Spinner from "../spinner";
 import Product from "../product";
@@ -17,7 +17,7 @@ const Products = props => {
   const { products, isLoading, UPDATE_PRODUCTS, TOGGLE_SPINNER } = props;
 
   const createProductList = async () => {
-    let products = await ax2.get("/db/products");
+    let products = await req.get("/db/products");
     if (!products.length) await updateDB();
     if (prodSize) products = products.slice(0, prodSize);
     products = products.map(product => {
@@ -50,12 +50,9 @@ const Products = props => {
   };
 
   const updateDB = async () => {
-    const res = await ax2.get("/grabber");
+    const res = await req.get("/grabber");
     l(res);
     createProductList();
-    //  const res = await add("/telegram", data);
-    // const res = await all("/users", data);
-    // const res = await get("/db", "users");
   };
 
   return (

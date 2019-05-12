@@ -1,7 +1,8 @@
 const express = require("express"),
   router = express.Router(),
-  telegram = require("../controllers/telegram");
+  telegram = require("../controllers/telegram"),
+  erh = require("../services/erh");
 
-router.post("/", telegram);
+router.post("/", erh(telegram));
 
 module.exports = router;

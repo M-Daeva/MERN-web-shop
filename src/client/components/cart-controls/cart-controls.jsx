@@ -1,6 +1,6 @@
 import l from "../../services/log";
 import ls from "../../services/ls";
-import { ax2 } from "../../services/request";
+import { req } from "../../services/request";
 import React from "react";
 import { connect } from "react-redux";
 import actions, { getByID } from "../../state";
@@ -45,7 +45,7 @@ const CartControls = props => {
     const newUser = { ...user, ...{ cart: total } };
 
     const { fingerprint } = ls.get();
-    ax2.put("/db/users", { ...newUser, fingerprint });
+    req.put("/db/users", { ...newUser, fingerprint });
     UPDATE_CART({ user: newUser });
     UPDATE_PRODUCTS({ products: newProducts });
   };

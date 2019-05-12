@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import actions from "../../state";
 import l from "../../services/log";
 import ls from "../../services/ls";
-import { ax2 } from "../../services/request";
+import { req } from "../../services/request";
 import styles from "./popup-order.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
@@ -48,7 +48,7 @@ const PopupOrder = props => {
   const submit = async e => {
     e.preventDefault();
     const { fingerprint, token: oldToken } = ls.get();
-    const res = await ax2.post(
+    const res = await req.post(
       "/db/users",
       {
         ...newForm,
