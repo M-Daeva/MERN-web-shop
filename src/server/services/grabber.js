@@ -1,12 +1,10 @@
-const { create } = require("axios"),
-  { req } = require("../services/request"),
+const { req } = require("../services/request"),
   { JSDOM } = require("jsdom"),
-  { baseURL, startPage } = require("../config").grabber,
-  ax = create({ baseURL }),
+  { startPage } = require("../config").grabber,
   l = console.log.bind(console);
 
 const createQuerySelector = async link => {
-  const { data } = await ax.get(link),
+  const data = await req.get(link),
     dom = new JSDOM(data);
   return target => [...dom.window.document.querySelectorAll(target)];
 };
@@ -23,25 +21,20 @@ const parsePage = $ => {
 };
 
 const getProducts = async () => {
-  const goods = [];
+  const $ = await createQuerySelector(startPage),
+    otherPages = $(".pager ul li a").map(item => item.href),
+    pages = [startPage, ...otherPages],
+    links = [],
+    goods = [];
 
-  try {
-    const $ = await createQuerySelector(startPage),
-      otherPages = $(".pager ul li a").map(item => item.href),
-      pages = [startPage, ...otherPages],
-      links = [];
+  for (let page of pages) {
+    const $ = await createQuerySelector(page);
+    $(".item__content a").map(item => links.push(item.href));
+  }
 
-    for (let page of pages) {
-      const $ = await createQuerySelector(page);
-      $(".item__content a").map(item => links.push(item.href));
-    }
-
-    for (let link of links) {
-      const $ = await createQuerySelector(link);
-      goods.push(parsePage($));
-    }
-  } catch {
-    l("grabber request error");
+  for (let link of links) {
+    const $ = await createQuerySelector(link);
+    goods.push(parsePage($));
   }
 
   return goods;

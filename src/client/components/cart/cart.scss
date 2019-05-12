@@ -1,0 +1,22 @@
+$btn-size: 150px;
+
+.cart {
+  text-align: center;
+  font-weight: 700;
+  font-size: 26px;
+}
+
+.btn {
+  text-align: center;
+  outline: none;
+  border: 1px solid black;
+  height: calc(#{$btn-size} / 2);
+  width: $btn-size;
+  font-size: calc(#{$btn-size} / 5);
+  background-color: white;
+
+  &:hover,
+  &:active {
+    outline: none;
+  }
+}

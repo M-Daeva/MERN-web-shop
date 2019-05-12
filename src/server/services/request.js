@@ -1,7 +1,7 @@
 const axios = require("axios"),
   { baseUrl } = require("../config");
 
-const { baseURL, startPage } = require("../config").grabber;
+const { baseURL } = require("../config").grabber;
 
 const createRequest = config => {
   const ax = axios.create(config);

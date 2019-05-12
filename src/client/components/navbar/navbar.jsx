@@ -9,22 +9,22 @@ const Navbar = () => {
     <ul className={cn("navbar")}>
       <li className={cn("item")}>
         <Link className={cn("link")} to="/">
-          Main
+          Главная
         </Link>
       </li>
       <li className={cn("item")}>
         <Link className={cn("link")} to="/products">
-          Products
+          Каталог
         </Link>
       </li>
       <li className={cn("item")}>
         <Link className={cn("link")} to="/cart">
-          Cart
+          Корзина
         </Link>
       </li>
       <li className={cn("item")}>
         <Link className={cn("link")} to="/order">
-          Order
+          Регистрация
         </Link>
       </li>
     </ul>

@@ -4,7 +4,7 @@ import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 const Main = () => {
-  return <div>main</div>;
+  return <div>Главная</div>;
 };
 
 export default Main;
