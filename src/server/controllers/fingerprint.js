@@ -1,35 +1,26 @@
 const User = require("../models/users");
 
-const fpPost = (req, res, next) => {
-  const { fingerprint } = req.body;
+const fpPost = async (req, res) => {
+  const { fingerprint: fp } = req.body;
+  const id = Date.now() + "" + Math.random();
+  const empty = {
+    login: "",
+    password: "",
+    cart: [],
+    city: "",
+    email: "",
+    fingerprint: id
+  };
+  let { cart, city, fingerprint } = empty;
 
-  if (!fingerprint) {
-    const id = Date.now() + "" + Math.random();
-
-    const empty = {
-      login: "",
-      password: "",
-      cart: [],
-      city: "",
-      email: "",
-      fingerprint: id
-    };
-
+  if (!fp) {
     const user = new User(empty);
-
-    user.save(err => {
-      if (err) return next(err);
-      const { cart, city, fingerprint } = empty;
-      res.send({ cart, city, fingerprint });
-    });
+    await user.save();
   } else {
-    User.findOne({ fingerprint }, (err, user) => {
-      //      console.log(user);
-      if (err) return next(err);
-      const { cart, city, fingerprint } = user || {};
-      res.send({ cart, city, fingerprint });
-    });
+    ({ cart, city, fingerprint } =
+      (await User.findOne({ fingerprint: fp })) || {});
   }
+  res.send({ cart, city, fingerprint });
 };
 
 module.exports = { fpPost };

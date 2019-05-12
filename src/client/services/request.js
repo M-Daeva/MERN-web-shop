@@ -8,11 +8,11 @@ const ax = axios.create({
 });
 
 class Ax2 {
-	get = async (url, params) => (await ax.get(url, { params })).data;
+	get = async (url, params, config) => (await ax.get(url, { params }, config)).data;
 
-	post = async (url, params) => (await ax.post(url, params)).data;
+	post = async (url, params, config) => (await ax.post(url, params, config)).data;
 
-	put = async (url, params) => (await ax.put(url, params)).data;
+	put = async (url, params, config) => (await ax.put(url, params, config)).data;
 }
 
 const ax2 = new Ax2();

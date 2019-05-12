@@ -47,8 +47,17 @@ const PopupOrder = props => {
 
   const submit = async e => {
     e.preventDefault();
-    const { fingerprint } = ls.get();
-    const res = await ax2.post("/db/users", { ...newForm, fingerprint });
+    const { fingerprint, token: oldToken } = ls.get();
+    const res = await ax2.post(
+      "/db/users",
+      {
+        ...newForm,
+        fingerprint
+      },
+      {
+        headers: { "x-auth-token": oldToken }
+      }
+    );
     l(res);
     const { token } = res;
     ls.set({ token });

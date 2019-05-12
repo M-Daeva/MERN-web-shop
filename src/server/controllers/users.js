@@ -4,110 +4,97 @@ const { jwtSecret } = require("config");
 const User = require("../models/users");
 const l = console.log.bind(console);
 
-const userAdd = (req, res, next) => {
+const userAdd = async (req, res) => {
   const user = new User(req.body);
-
-  user.save(err => {
-    if (err) return next(err);
-    res.send("added");
-  });
+  await user.save();
+  res.send("added");
 };
 
-const userGet = (req, res, next) => {
+const userGet = async (req, res) => {
   const { fingerprint } = req.query;
-
-  User.findOne({ fingerprint }, (err, user) => {
-    if (err) return next(err);
-    res.send(user);
-  });
+  const user = await User.findOne({ fingerprint });
+  res.send(user);
 };
 
-const userGetAll = (req, res, next) => {
-  User.find((err, users) => {
-    if (err) return next(err);
-    res.send(users);
-  });
+const userGetAll = async (req, res) => {
+  const users = await User.find();
+  res.send(users);
 };
 
-const userAuth = (req, res, next) => {
+const checkToken = (req, res) => {
+  const token = req.header("x-auth-token");
+
+  const decoded = jwt.verify(token, jwtSecret);
+  return decoded;
+};
+
+const userAuth = async (req, res) => {
+  const expiresIn = 300;
+
+  try {
+    await checkToken(req);
+    l("authorized");
+  } catch (e) {
+    l("non authorized");
+  }
+
   const { login, password, email, fingerprint } = req.body;
-  User.findOne({ login }, async (err, user) => {
-    if (err) return next(err);
+  const user = await User.findOne({ login });
 
-    if (user) {
-      const passMatch = await bcrypt.compare(password, user.password);
+  if (user) {
+    const passMatch = await bcrypt.compare(password, user.password);
 
-      if (passMatch) {
-        jwt.sign({ login }, jwtSecret, { expiresIn: 60 }, (err, token) => {
-          if (err) throw err;
+    if (passMatch) {
+      const token = await jwt.sign({ fingerprint }, jwtSecret, { expiresIn });
 
-          user.fingerprint = fingerprint;
-          user.save(err => {
-            if (err) throw err;
+      user.fingerprint = fingerprint;
+      const { cart, city } = await user.save();
 
-            const { cart, city } = user;
-            res.send({ token, user: { cart, city } });
-          });
-        });
-      } else {
-        // wrong password
-        res.send("wrong password");
-      }
+      res.send({ token, user: { cart, city } });
     } else {
-      // write login and password
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(password, salt, (err, hash) => {
-          if (err) throw err;
-
-          User.findOneAndUpdate(
-            { fingerprint },
-            { login, password: hash, email },
-            err => {
-              if (err) throw err;
-              res.send("done");
-            }
-          );
-        });
-      });
+      // wrong password
+      res.send("wrong password");
     }
-  });
+  } else {
+    // write login and password
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+
+    await User.findOneAndUpdate(
+      { fingerprint },
+      { login, password: hash, email }
+    );
+    res.send("rigistered");
+  }
 };
 
-const userUpdate = (req, res, next) => {
-  const { fingerprint, city, cart } = req.body;
+const userUpdate = async (req, res) => {
+  const { fingerprint, cart } = req.body;
 
-  User.findOneAndUpdate(
+  await User.findOneAndUpdate(
     { fingerprint },
     {
       $set: { cart }
-    },
-    () => {
-      User.findOneAndUpdate(
-        { fingerprint },
-        {
-          $pull: { cart: { quantity: "0" } }
-        },
-        (err, user) => {
-          if (err) return next(err);
-          res.send(user.cart);
-        }
-      );
     }
   );
+
+  const user = await User.findOneAndUpdate(
+    { fingerprint },
+    {
+      $pull: { cart: { quantity: "0" } }
+    }
+  );
+  res.send(user.cart);
 };
 
-const userDelete = (req, res, next) => {
-  User.findOneAndDelete({ _id: req.params.id }, err => {
-    if (err) return next(err);
-    res.send("deleted");
-  });
+const userDelete = async (req, res) => {
+  await User.findOneAndDelete({ _id: req.params.id });
+  res.send("deleted");
 };
 
-const userDeleteAll = (req, res, next) => {
-  User.deleteMany(err => {
-    if (err) return next(err);
-    res.send("deleted all");
-  });
+const userDeleteAll = async (req, res) => {
+  await User.deleteMany();
+  res.send("deleted all");
 };
 
 module.exports = {

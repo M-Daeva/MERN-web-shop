@@ -1,6 +1,6 @@
 const ax = require("../services/telegram");
 
-const telegram = async (req, res, next) => {
+const telegram = async (req, res) => {
   const obj = req.body;
 
   const text = Object.keys(obj).reduce((acc, cur) => {

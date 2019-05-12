@@ -8,10 +8,7 @@ const update = async (req, res, next) => {
     Products.findOneAndUpdate(
       { name: product.name },
       { $set: product },
-      { upsert: true },
-      err => {
-        if (err) return next(err);
-      }
+      { upsert: true }
     )
   );
 
