@@ -1,6 +1,6 @@
 const { create } = require("axios"),
   { JSDOM } = require("jsdom"),
-  { baseURL, startPage } = require("config").grabber,
+  { baseURL, startPage } = require("../config").grabber,
   ax = create({ baseURL }),
   l = console.log.bind(console);
 

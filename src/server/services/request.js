@@ -1,5 +1,5 @@
 const axios = require("axios"),
-  { baseUrl } = require("config");
+  { baseUrl } = require("../config");
 
 async function request(page, method, id = "", data) {
   if (id !== "") id = "/" + id;

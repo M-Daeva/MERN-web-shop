@@ -1,14 +1,8 @@
+const User = require("../models/users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { jwtSecret } = require("config");
-const User = require("../models/users");
+const { jwtSecret } = require("../config");
 const l = console.log.bind(console);
-
-const userAdd = async (req, res) => {
-  const user = new User(req.body);
-  await user.save();
-  res.send("added");
-};
 
 const userGet = async (req, res) => {
   const { fingerprint } = req.query;
@@ -16,16 +10,9 @@ const userGet = async (req, res) => {
   res.send(user);
 };
 
-const userGetAll = async (req, res) => {
-  const users = await User.find();
-  res.send(users);
-};
-
-const checkToken = (req, res) => {
+const checkToken = async (req, res) => {
   const token = req.header("x-auth-token");
-
-  const decoded = jwt.verify(token, jwtSecret);
-  return decoded;
+  await jwt.verify(token, jwtSecret);
 };
 
 const userAuth = async (req, res) => {
@@ -87,22 +74,8 @@ const userUpdate = async (req, res) => {
   res.send(user.cart);
 };
 
-const userDelete = async (req, res) => {
-  await User.findOneAndDelete({ _id: req.params.id });
-  res.send("deleted");
-};
-
-const userDeleteAll = async (req, res) => {
-  await User.deleteMany();
-  res.send("deleted all");
-};
-
 module.exports = {
-  userAdd,
   userGet,
-  userGetAll,
   userUpdate,
-  userDelete,
-  userDeleteAll,
   userAuth
 };

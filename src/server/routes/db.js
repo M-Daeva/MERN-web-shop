@@ -1,18 +1,12 @@
 const express = require("express"),
   router = express.Router(),
-  {
-    getUsers,
-    getProducts,
-    userAdd,
-    userUpdate,
-    userAuth
-  } = require("../controllers/db");
+  { getProducts, userUpdate, userAuth, userGet } = require("../controllers/db");
 
 router
-  .get("/users", getUsers)
+  .get("/users", userGet)
   .post("/users", userAuth)
-  .get("/products", getProducts)
+  .put("/users", userUpdate)
 
-  .put("/users/:id", userUpdate);
+  .get("/products", getProducts);
 
 module.exports = router;

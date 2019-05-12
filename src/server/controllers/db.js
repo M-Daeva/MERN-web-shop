@@ -1,11 +1,9 @@
 const { productGetAll } = require("./products");
-const { userGetAll, userAdd, userUpdate, userAuth } = require("./users");
-const { all, get } = require("../services/request");
+const { userGet, userUpdate, userAuth } = require("./users");
 
 module.exports = {
-  userAdd,
-  userUpdate,
-  getUsers: userGetAll,
   getProducts: productGetAll,
-  userAuth
+  userUpdate,
+  userAuth,
+  userGet
 };

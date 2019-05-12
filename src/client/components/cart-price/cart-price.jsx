@@ -1,9 +1,9 @@
-import l from "../../services/log";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import actions, { getByID } from "../../state";
 import { ax2 } from "../../services/request";
 import ls from "../../services/ls";
+import l from "../../services/log";
 import styles from "./cart-price.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
@@ -24,14 +24,14 @@ const CartPrice = props => {
   useEffect(() => {
     (async () => {
       let { fingerprint } = ls.get();
-      const { cart, city } = await ax2.get("/users", {
+      const { cart, city } = await ax2.get("/db/users", {
         fingerprint
       });
       UPDATE_CART({ user: { cart, city } });
     })();
   }, []);
 
-  l(cart.map(({ quantity }) => quantity));
+  // l(cart.map(({ quantity }) => quantity));
 
   return (
     <h2 className={cn("cartPrice white")}>
