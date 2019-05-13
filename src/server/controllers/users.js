@@ -10,20 +10,8 @@ const userGet = async (req, res) => {
   res.send(user);
 };
 
-const checkToken = async (req, res) => {
-  const token = req.header("x-auth-token");
-  await jwt.verify(token, jwtSecret);
-};
-
 const userAuth = async (req, res) => {
-  const expiresIn = 300;
-
-  try {
-    await checkToken(req);
-    l("authorized");
-  } catch (e) {
-    l("non authorized");
-  }
+  const expiresIn = 10;
 
   const { login, password, email, fingerprint } = req.body;
   const user = await User.findOne({ login });

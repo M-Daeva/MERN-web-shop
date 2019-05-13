@@ -25,7 +25,7 @@ const CartPrice = props => {
     (async () => {
       let { fingerprint } = ls.get();
       const { cart, city } = await req.get("/db/users", {
-        fingerprint
+        params: { fingerprint }
       });
       UPDATE_CART({ user: { cart, city } });
     })();

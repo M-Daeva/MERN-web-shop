@@ -6,6 +6,7 @@ const { port } = require("./config"),
   grabber = require("./routes/grabber"),
   fingerprint = require("./routes/fingerprint"),
   telegram = require("./routes/telegram"),
+  payment = require("./routes/payment"),
   app = exp();
 
 app.use(cors(), text(), json());
@@ -13,5 +14,6 @@ app.use("/grabber", grabber);
 app.use("/fingerprint", fingerprint);
 app.use("/telegram", telegram);
 app.use("/db", db);
+app.use("/payment", payment);
 
 app.listen(port);

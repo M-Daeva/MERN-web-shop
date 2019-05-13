@@ -41,6 +41,7 @@ const initialState = {
 		email: "",
 	},
 	isLoading: true,
+	secret: undefined,
 };
 
 function reducer(state = initialState, action = {}) {
@@ -50,6 +51,7 @@ function reducer(state = initialState, action = {}) {
 		"UPDATE_CITY",
 		"UPDATE_FORM",
 		"TOGGLE_SPINNER",
+		"GET_SECRET",
 	);
 
 	return { ...state, ...newState };
