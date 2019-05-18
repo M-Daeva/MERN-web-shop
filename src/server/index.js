@@ -7,6 +7,7 @@ const { port } = require("./config"),
   fingerprint = require("./routes/fingerprint"),
   telegram = require("./routes/telegram"),
   payment = require("./routes/payment"),
+  test = require("./routes/test"),
   app = exp();
 
 app.use(cors(), text(), json());
@@ -15,6 +16,7 @@ app.use("/fingerprint", fingerprint);
 app.use("/telegram", telegram);
 app.use("/db", db);
 app.use("/payment", payment);
+app.use("/test", test);
 
 app.listen(port);
 

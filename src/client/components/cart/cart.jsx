@@ -23,11 +23,21 @@ const Cart = props => {
     }
   };
 
+  const getHeaders = async () => {
+    try {
+      const data = await req.get("/test");
+      l(data);
+    } catch {
+      l("req err");
+    }
+  };
+
   const renderSecret = () => {
     if (secret) return <button className={cn("btn")}>{secret}</button>;
   };
 
   useEffect(() => {
+    getHeaders();
     getSecret();
   }, []);
 
