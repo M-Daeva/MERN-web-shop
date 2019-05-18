@@ -17,3 +17,5 @@ app.use("/db", db);
 app.use("/payment", payment);
 
 app.listen(port);
+
+require("./services/blockTests");

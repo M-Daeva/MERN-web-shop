@@ -13,6 +13,8 @@ const createRequest = config => {
       (await ax.post(url, params, config)).data;
     put = async (url, params, config) =>
       (await ax.put(url, params, config)).data;
+    patch = async (url, params, config) =>
+      (await ax.patch(url, params, config)).data;
   }
 
   return new Request();
@@ -43,7 +45,7 @@ const add = async (page, data) => await request(page, "POST", undefined, data),
   del = async (page, id) => await request(page, "DELETE", id),
   delAll = async page => await request(page, "DELETE");
 
-module.exports = { add, get, put, del, all, delAll, req };
+module.exports = { add, get, put, del, all, delAll, req, createRequest };
 
 /*
 
