@@ -11,6 +11,8 @@
     "build": "webpack --mode production",
     "dev": "webpack-dev-server --mode development",
     "ndm": "nodemon -r dotenv/config ./src/server/index.js",
+    "env": "node ./config/send-env.js",
+    "prep": "npm run build & npm run env",
     "full": "start npm run dev | start npm run ndm"
   },
   "nodemonConfig": {

@@ -23,5 +23,9 @@ module.exports = {
     label2: p.DOGE_LABEL2,
     address: p.DOGE_ADDRESS,
     address2: p.DOGE_ADDRESS2
-  }
+  },
+  referer: p.REFERER,
+  host: p.HOST,
+  referer2: p.REFERER2,
+  host2: p.HOST2
 };
