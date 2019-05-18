@@ -3,7 +3,8 @@ const path = require("path"),
   MiniCssExtractPlugin = require("mini-css-extract-plugin"),
   PrettierPlugin = require("prettier-webpack-plugin"),
   CopyWebpackPlugin = require("copy-webpack-plugin"),
-  webpack = require("webpack");
+  webpack = require("webpack"),
+  CnameWebpackPlugin = require("cname-webpack-plugin");
 
 const sass = {
   test: /\.(sass|scss)$/,
@@ -99,6 +100,10 @@ const config = {
 
     new MiniCssExtractPlugin({
       filename: "style.bundle.css"
+    }),
+
+    new CnameWebpackPlugin({
+      domain: "madembed.ru"
     })
   ],
   resolve: {
