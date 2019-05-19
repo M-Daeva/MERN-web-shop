@@ -5,7 +5,7 @@ const baseURL = isProdMode
 	: "http://localhost:3000";
 
 const restURL = isProdMode
-	? "https://fewed.github.io/MERN-web-shop/#/products"
+	? "https://madembed.ru/#/products"
 	: "http://localhost:8080/#/products";
 
 export { baseURL, restURL };

@@ -1,1 +1,1 @@
-[MERN-web-shop](https://fewed.github.io/MERN-web-shop/)
+[MERN-web-shop](https://madembed.ru/)

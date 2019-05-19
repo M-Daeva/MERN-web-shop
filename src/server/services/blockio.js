@@ -15,7 +15,7 @@ const initBlockIo = (apiKey, secretPin) => {
     props = Object.getOwnPropertyNames(proto);
 
   return props.reduce((acc, cur, i, arr) => {
-    if (!cur.match(/^[a-z]+_[a-z]+/)) return acc;
+    if (cur.match(/^_|constructor/)) return acc;
     const renamed = cur.replace(/_(\w)/g, (a, b) => b.toUpperCase());
     acc[renamed] = wrapper(proto[arr[i]].bind(blockio));
     return acc;
@@ -27,7 +27,11 @@ const {
   getBalance,
   getMyAddresses,
   getAddressBalance,
-  getAddressByLabel
+  getAddressByLabel,
+  withdraw,
+  withdrawFromAddresses,
+  withdrawFromLabels,
+  getNetworkFeeEstimate
 } = initBlockIo(TEST_API_KEY, SECRET_PIN);
 
 module.exports = {
@@ -35,5 +39,9 @@ module.exports = {
   getBalance,
   getMyAddresses,
   getAddressBalance,
-  getAddressByLabel
+  getAddressByLabel,
+  withdraw,
+  withdrawFromAddresses,
+  withdrawFromLabels,
+  getNetworkFeeEstimate
 };
