@@ -7,5 +7,5 @@ const baseURL = isProdMode
 const restURL = isProdMode
 	? "https://madembed.ru/#/products"
 	: "http://localhost:8080/#/products";
-
+console.log("client.js", baseURL);
 export { baseURL, restURL };

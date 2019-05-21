@@ -15,7 +15,7 @@ const initBlockIo = (apiKey, secretPin) => {
     props = Object.getOwnPropertyNames(proto);
 
   return props.reduce((acc, cur, i, arr) => {
-    if (cur.match(/^_|constructor/)) return acc;
+    if (cur.match(/^_/)) return acc;
     const renamed = cur.replace(/_(\w)/g, (a, b) => b.toUpperCase());
     acc[renamed] = wrapper(proto[arr[i]].bind(blockio));
     return acc;
