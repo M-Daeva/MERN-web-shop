@@ -31,7 +31,20 @@ const {
   withdraw,
   withdrawFromAddresses,
   withdrawFromLabels,
-  getNetworkFeeEstimate
+  getNetworkFeeEstimate,
+  archiveAddresses,
+  unarchiveAddresses,
+  getMyArchivedAddresses,
+  getCurrentPrice,
+  getTransactions,
+  getRawTransaction,
+  isValidAddress,
+  createNotification,
+  disableNotification,
+  enableNotification,
+  getNotifications,
+  getRecentNotificationEvents,
+  deleteNotification
 } = initBlockIo(TEST_API_KEY, SECRET_PIN);
 
 module.exports = {
@@ -43,5 +56,18 @@ module.exports = {
   withdraw,
   withdrawFromAddresses,
   withdrawFromLabels,
-  getNetworkFeeEstimate
+  getNetworkFeeEstimate,
+  archiveAddresses,
+  unarchiveAddresses,
+  getMyArchivedAddresses,
+  getCurrentPrice,
+  getTransactions,
+  getRawTransaction,
+  isValidAddress,
+  createNotification,
+  disableNotification,
+  enableNotification,
+  getNotifications,
+  getRecentNotificationEvents,
+  deleteNotification
 };

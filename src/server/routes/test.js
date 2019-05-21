@@ -1,8 +1,8 @@
 const express = require("express"),
   router = express.Router(),
-  { test } = require("../controllers/test"),
+  { getHandler, postHandler } = require("../controllers/test"),
   erh = require("../services/erh");
 
-router.get("/", erh(test));
+router.get("/", erh(getHandler)).post("/", erh(postHandler));
 
 module.exports = router;

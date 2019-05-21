@@ -34,6 +34,7 @@ const initialState = {
 	user: {
 		cart: [],
 		city: "",
+		orders: [],
 	},
 	form: {
 		login: "",

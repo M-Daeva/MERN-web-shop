@@ -1,5 +1,5 @@
 const mongoose = require("mongoose"),
-  { dbURL } = require("../config");
+	{ dbURL } = require("../config");
 
 mongoose.connect(dbURL, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;

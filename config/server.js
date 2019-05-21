@@ -22,7 +22,8 @@ module.exports = {
     label: p.DOGE_LABEL,
     label2: p.DOGE_LABEL2,
     address: p.DOGE_ADDRESS,
-    address2: p.DOGE_ADDRESS2
+    address2: p.DOGE_ADDRESS2,
+    dogeURL: p.NODE_ENV === "development" ? p.DOGE_DEV_URL : p.DOGE_PROD_URL
   },
   referer: p.REFERER,
   host: p.HOST,

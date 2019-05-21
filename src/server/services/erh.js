@@ -1,7 +1,7 @@
 const checkPermission = require("./check-permission");
 
 const erh = fn => async (req, res, next) => {
-  checkPermission(req, res);
+  // checkPermission(req, res);
   try {
     await fn(req, res);
   } catch (error) {
