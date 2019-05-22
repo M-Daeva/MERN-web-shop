@@ -1,11 +1,11 @@
 const isProdMode = PROD_MODE;
 
 const baseURL = isProdMode
-	? "https://mern-web-shop.herokuapp.com"
-	: "http://localhost:3000";
+  ? process.env.CLIENT_BASE_URL_PROD
+  : process.env.CLIENT_BASE_URL_DEV;
 
 const restURL = isProdMode
-	? "https://madembed.ru/#/products"
-	: "http://localhost:8080/#/products";
-console.log("client.js", baseURL);
+  ? process.env.CLIENT_REST_URL_PROD
+  : process.env.CLIENT_REST_URL_DEV;
+
 export { baseURL, restURL };

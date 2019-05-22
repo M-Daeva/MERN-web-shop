@@ -17,5 +17,5 @@ const req = createRequest({
 	baseURL,
 	headers: { "Content-Type": "application/json" },
 });
-console.log("request.js", baseURL);
+
 export { axios, req, createRequest };

@@ -1,10 +1,9 @@
 const path = require("path"),
   HtmlWebpackPlugin = require("html-webpack-plugin"),
   MiniCssExtractPlugin = require("mini-css-extract-plugin"),
-  PrettierPlugin = require("prettier-webpack-plugin"),
-  CopyWebpackPlugin = require("copy-webpack-plugin"),
   webpack = require("webpack"),
-  CnameWebpackPlugin = require("cname-webpack-plugin");
+  CnameWebpackPlugin = require("cname-webpack-plugin"),
+  Dotenv = require("dotenv-webpack");
 
 const sass = {
   test: /\.(sass|scss)$/,
@@ -83,17 +82,6 @@ const config = {
 
   module: { rules: [js, sass, img] },
   plugins: [
-    new PrettierPlugin({
-      printWidth: 90, // Specify the length of line that the printer will wrap on.
-      tabWidth: 2, // Specify the number of spaces per indentation-level.
-      useTabs: true, // Indent lines with tabs instead of spaces.
-      semi: true, // Print semicolons at the ends of statements.
-      encoding: "utf-8", // Which encoding scheme to use on files
-      extensions: [".js"], // Which file extensions to process
-      trailingComma: "all",
-      arrowParens: "always"
-    }),
-
     new HtmlWebpackPlugin({
       template: "./src/client/index.html"
     }),
@@ -104,7 +92,9 @@ const config = {
 
     new CnameWebpackPlugin({
       domain: "madembed.ru"
-    })
+    }),
+
+    new Dotenv()
   ],
   resolve: {
     extensions: [".js", ".jsx"]

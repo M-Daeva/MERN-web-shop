@@ -1,28 +1,19 @@
-require("dotenv").config({ path: "../.env" });
-const { ENV_URL, ENV_AUTH_KEY } = process.env,
+const { URL, AUTH_KEY } = require("./server").env,
+  { promisify, createRequest, l } = require("../src/utils"),
   { readFile } = require("fs"),
-  { createRequest } = require("../src/server/services/request"),
   headers = {
     "Content-Type": "application/json",
     Accept: "application/vnd.heroku+json; version=3",
-    Authorization: ENV_AUTH_KEY
+    Authorization: AUTH_KEY
   };
 
 const req = createRequest({
-  baseURL: ENV_URL,
+  baseURL: URL,
   headers
 });
 
-const rf = (path, type = "utf-8") => {
-  return new Promise(resolve => {
-    readFile(path, type, (err, data) => {
-      resolve(data);
-    });
-  });
-};
-
 const send = async () => {
-  const file = await rf("../.env"),
+  const file = await promisify(readFile)("../.env", "utf-8"),
     strings = file.split("\n").filter(data => data.trim()),
     envs = strings.reduce((acc, cur) => {
       const pair = cur.split("="),
@@ -33,7 +24,7 @@ const send = async () => {
       return acc;
     }, {});
   const res = await req.patch("/", envs);
-  console.log(res);
+  l(res);
 };
 
 send();
