@@ -19,4 +19,3 @@ app.use("/payment", payment);
 app.use("/test", test);
 
 app.listen(port);
-console.log(5);

@@ -18,7 +18,7 @@ import { req } from "../../services/request";
 import styles from "./app.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
-console.log(7);
+
 const App = () => {
   useEffect(() => {
     (async () => {
