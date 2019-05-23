@@ -2,8 +2,7 @@ const path = require("path"),
   HtmlWebpackPlugin = require("html-webpack-plugin"),
   MiniCssExtractPlugin = require("mini-css-extract-plugin"),
   webpack = require("webpack"),
-  CnameWebpackPlugin = require("cname-webpack-plugin"),
-  Dotenv = require("dotenv-webpack");
+  CnameWebpackPlugin = require("cname-webpack-plugin");
 
 const sass = {
   test: /\.(sass|scss)$/,
@@ -92,9 +91,7 @@ const config = {
 
     new CnameWebpackPlugin({
       domain: "madembed.ru"
-    }),
-
-    new Dotenv()
+    })
   ],
   resolve: {
     extensions: [".js", ".jsx"]

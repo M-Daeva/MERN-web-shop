@@ -1,4 +1,4 @@
-const { createRequest } = require("./request"),
+const { create } = require("axios"),
   { token, chatID } = require("../config").telegram;
 
 const baseURL =
@@ -6,10 +6,10 @@ const baseURL =
   `/sendMessage?chat_id=${chatID}` +
   `&parse_mode=html`;
 
-const request = createRequest({
+const ax = create({
   baseURL,
   headers: { "Content-Type": "application/json" },
-  timeout: 5000
+  timeout: 1000
 });
 
-module.exports = request;
+module.exports = ax;

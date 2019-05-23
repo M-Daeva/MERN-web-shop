@@ -1,9 +1,10 @@
-const { request } = require("./request"),
+const { req } = require("../services/request"),
   { JSDOM } = require("jsdom"),
-  { startPage } = require("../config").grabber;
+  { startPage } = require("../config").grabber,
+  l = console.log.bind(console);
 
 const createQuerySelector = async link => {
-  const data = await request.get(link),
+  const data = await req.get(link),
     dom = new JSDOM(data);
   return target => [...dom.window.document.querySelectorAll(target)];
 };
