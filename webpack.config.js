@@ -55,7 +55,7 @@ const js = {
 };
 
 const img = {
-  test: /\.(gif|png|jpe?g|svg)$/i,
+  test: /\.(gif|png|jpe?g|svg|ico)$/i,
   use: [
     "file-loader",
     {
@@ -82,7 +82,8 @@ const config = {
   module: { rules: [js, sass, img] },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/client/index.html"
+      template: "./src/client/index.html",
+      favicon: "./src/client/favicon.ico"
     }),
 
     new MiniCssExtractPlugin({

@@ -1,16 +1,16 @@
-const User = require("../models/users");
+const User = require("../models/users"),
+  { getID } = require("../../utils");
 
 const fpPost = async (req, res) => {
-  const { fingerprint: fp } = req.body;
-  const id = Date.now() + "" + Math.random();
-  const empty = {
-    login: "",
-    password: "",
-    cart: [],
-    city: "",
-    email: "",
-    fingerprint: id
-  };
+  const { fingerprint: fp } = req.body,
+    empty = {
+      login: "",
+      password: "",
+      cart: [],
+      city: "",
+      email: "",
+      fingerprint: getID()
+    };
   let { cart, city, fingerprint } = empty;
 
   if (!fp) {

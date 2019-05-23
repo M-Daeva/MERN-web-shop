@@ -1,10 +1,14 @@
-const { req } = require("../services/request"),
-  { JSDOM } = require("jsdom"),
-  { startPage } = require("../config").grabber,
-  l = console.log.bind(console);
+const { JSDOM } = require("jsdom"),
+  { createRequest, l } = require("../../utils"),
+  { startPage, baseURL } = require("../config").grabber;
+
+const request = createRequest({
+  baseURL,
+  headers: { "Content-Type": "application/json" }
+});
 
 const createQuerySelector = async link => {
-  const data = await req.get(link),
+  const data = await request.get(link),
     dom = new JSDOM(data);
   return target => [...dom.window.document.querySelectorAll(target)];
 };

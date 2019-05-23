@@ -1,8 +1,8 @@
-const User = require("../models/users");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const { jwtSecret } = require("../config");
-const l = console.log.bind(console);
+const User = require("../models/users"),
+  bcrypt = require("bcryptjs"),
+  jwt = require("jsonwebtoken"),
+  { jwtSecret } = require("../config"),
+  { l } = require("../../utils");
 
 const userGet = async (req, res) => {
   const { fingerprint } = req.query;

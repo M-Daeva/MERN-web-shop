@@ -9,7 +9,7 @@ const {
   {
     dogecoin: { label, label2, dogeURL }
   } = require("../config"),
-  l = console.log.bind(console);
+  { l, getID } = require("../../utils");
 
 let store = {};
 let tempLabel;
@@ -61,7 +61,7 @@ const getHandler = async (req, res) => {
     }
 
     // create temporary address
-    tempLabel = Date.now() + "" + Math.random();
+    tempLabel = getID();
     const { address: tempAddress } = await getNewAddress({ label: tempLabel });
     l("ta", tempAddress);
 

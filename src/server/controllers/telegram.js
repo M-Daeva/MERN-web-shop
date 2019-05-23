@@ -1,4 +1,4 @@
-const ax = require("../services/telegram");
+const request = require("../services/telegram");
 
 const telegram = async (req, res) => {
   const obj = req.body;
@@ -7,7 +7,7 @@ const telegram = async (req, res) => {
     return acc + `${`${cur}`.bold()}: ${obj[cur]}\n`;
   }, ``);
 
-  await ax.post("", { text });
+  await request.post("", { text });
   res.send("telegram message delivered");
 };
 
