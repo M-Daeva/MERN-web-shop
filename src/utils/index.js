@@ -32,4 +32,33 @@ const createRequest = config => {
 
 const getID = () => Date.now() + "" + Math.random();
 
-module.exports = { l, promisify, createRequest, getID };
+// nested object immutable update function
+const imup = (tree, entry) => {
+  const [name] = Object.keys(entry);
+  let temp,
+    isFound = false;
+
+  const loop = obj => {
+    for (let key in obj) {
+      if (key === name) {
+        [temp, isFound] = [entry, true];
+        break;
+      }
+
+      const value = obj[key];
+      if (value.constructor === Object) {
+        loop(value);
+        if (isFound) {
+          temp = { [key]: { ...value, ...temp } };
+          break;
+        }
+      }
+    }
+  };
+
+  loop(tree);
+
+  return { ...tree, ...temp };
+};
+
+module.exports = { l, promisify, createRequest, getID, imup };

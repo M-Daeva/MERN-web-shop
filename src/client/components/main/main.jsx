@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import actions from "../../state";
 import { req } from "../../services/request";
-import l from "../../services/log";
+import ls from "../../services/ls";
+import { l, createRequest, imup } from "../../../utils";
 import styles from "./main.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
@@ -27,19 +30,11 @@ const checker = async (price, timestamp, delay = 60000) => {
   });
 };
 
-// const newOrder = {
-//   status: "waiting for payment",
-//   products: [
-//     {
-//       id,
-//       quantity
-//     }
-//   ],
-//   totalPrice,
-//   delivery: {}
-// }
+const Main = props => {
+  const { UPDATE_CART, CREATE_ORDER, UPDATE_ORDER_STATUS, user } = props;
 
-const Main = () => {
+  l(props);
+
   const onSubmit = async e => {
     e.preventDefault();
 
@@ -53,7 +48,14 @@ const Main = () => {
     l(result);
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    (async () => {
+      const { fingerprint } = ls.get();
+      const { cart } = await req.get("/db/users", { params: { fingerprint } });
+      UPDATE_CART({ user: imup(user, { cart }) });
+      //  l(cart);
+    })();
+  }, []);
 
   return (
     <div>
@@ -66,4 +68,7 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default connect(
+  state => state,
+  actions
+)(Main);

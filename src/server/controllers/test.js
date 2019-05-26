@@ -83,7 +83,7 @@ const getHandler = async (req, res) => {
     l(withdraw);
 
     const timestamp = Date.now();
-    res.send({ timestamp });
+    res.send({ timestamp, address: tempAddress });
   }
 };
 

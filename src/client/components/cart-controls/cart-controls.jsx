@@ -1,4 +1,4 @@
-import l from "../../services/log";
+import { l, imup } from "../../../utils";
 import ls from "../../services/ls";
 import { req } from "../../services/request";
 import React from "react";
