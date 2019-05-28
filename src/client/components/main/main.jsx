@@ -30,13 +30,7 @@ const checker = async (price, timestamp, delay = 60000) => {
 };
 
 const Main = props => {
-  const {
-    updateState,
-    UPDATE_CART,
-    CREATE_ORDER,
-    UPDATE_ORDER_STATUS,
-    user
-  } = props;
+  const { updateState } = props;
 
   const onSubmit = async e => {
     e.preventDefault();
@@ -49,15 +43,6 @@ const Main = props => {
 
     // const result = await checker(price, timestamp);
     // l(result);
-
-    l(props.store);
-    const {
-      store: { products }
-    } = props;
-    const item = Math.round(10 * Math.random());
-    const newProducts = [...products, item];
-    updateState({ products: newProducts });
-    //  UP({ city: "kaluga" });
   };
 
   useEffect(() => {
