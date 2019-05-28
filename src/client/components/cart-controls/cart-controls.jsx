@@ -2,7 +2,6 @@ import { l, getByID } from "../../../utils";
 import ls from "../../services/ls";
 import { req } from "../../services/request";
 import React from "react";
-import { connectToStore } from "../../state";
 import styles from "./cart-controls.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
@@ -75,4 +74,4 @@ const CartControls = props => {
   );
 };
 
-export default connectToStore(CartControls);
+export default CartControls;

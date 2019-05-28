@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { connectToStore } from "../../state";
 import { l } from "../../../utils";
 import ls from "../../services/ls";
 import { req } from "../../services/request";
@@ -97,4 +96,4 @@ const PopupOrder = props => {
   );
 };
 
-export default connectToStore(PopupOrder);
+export default PopupOrder;

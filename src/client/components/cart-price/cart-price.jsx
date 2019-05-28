@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
 import { getByID, l } from "../../../utils";
-import { connectToStore } from "../../state";
 import { req } from "../../services/request";
 import ls from "../../services/ls";
 import styles from "./cart-price.scss";
@@ -42,4 +40,4 @@ const CartPrice = props => {
   );
 };
 
-export default connectToStore(CartPrice);
+export default CartPrice;

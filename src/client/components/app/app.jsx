@@ -6,15 +6,11 @@ import {
   Redirect,
   HashRouter
 } from "react-router-dom";
-import Main from "../main";
-import Products from "../products";
-import Order from "../order";
-import Cart from "../cart";
-import Navbar from "../navbar";
 import { Provider } from "react-redux";
 import { store } from "../../state";
 import ls from "../../services/ls";
 import { req } from "../../services/request";
+import { Navbar, Main, Products, Cart, Order } from "../connector";
 
 const App = () => {
   useEffect(() => {

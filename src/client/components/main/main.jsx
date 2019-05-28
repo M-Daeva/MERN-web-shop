@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { connectToStore } from "../../state";
 import { req } from "../../services/request";
 import ls from "../../services/ls";
 import { l, createRequest } from "../../../utils";
@@ -65,4 +64,4 @@ const Main = props => {
   );
 };
 
-export default connectToStore(Main);
+export default Main;

@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
-import { connectToStore } from "../../state";
 import { req } from "../../services/request";
 import { l } from "../../../utils";
-import Spinner from "../spinner";
-import Product from "../product";
-import CartPrice from "../cart-price";
+import { Spinner, Product, CartPrice } from "../connector";
 import scrollRestorer from "../../services/scroll-restorer";
 import styles from "./products.scss";
 import cnInit from "jcm-classnames";
@@ -69,4 +66,4 @@ const Products = props => {
   );
 };
 
-export default connectToStore(Products);
+export default Products;

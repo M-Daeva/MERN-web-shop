@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { connectToStore } from "../../state";
 import { req } from "../../services/request";
 import ls from "../../services/ls";
 import { l } from "../../../utils";
@@ -41,4 +40,4 @@ const Cart = props => {
   );
 };
 
-export default connectToStore(Cart);
+export default Cart;
