@@ -15,10 +15,6 @@ import { Provider } from "react-redux";
 import { store } from "../../state";
 import ls from "../../services/ls";
 import { req } from "../../services/request";
-import l from "../../services/log";
-import styles from "./app.scss";
-import cnInit from "jcm-classnames";
-const cn = cnInit(styles);
 
 const App = () => {
   useEffect(() => {
@@ -32,7 +28,7 @@ const App = () => {
   }, []);
 
   return (
-    <Provider store={store}>
+    <Provider {...{ store }}>
       <HashRouter>
         <Navbar />
         <Switch>

@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import actions from "../../state";
+import { connectToStore } from "../../state";
 import { req } from "../../services/request";
 import ls from "../../services/ls";
-import { l, createRequest, imup } from "../../../utils";
+import { l, createRequest } from "../../../utils";
 import styles from "./main.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
@@ -31,28 +30,41 @@ const checker = async (price, timestamp, delay = 60000) => {
 };
 
 const Main = props => {
-  const { UPDATE_CART, CREATE_ORDER, UPDATE_ORDER_STATUS, user } = props;
-
-  l(props);
+  const {
+    updateState,
+    UPDATE_CART,
+    CREATE_ORDER,
+    UPDATE_ORDER_STATUS,
+    user
+  } = props;
 
   const onSubmit = async e => {
     e.preventDefault();
 
-    const price = 5;
-    const { timestamp } = await req.get("/test", {
-      params: { price }
-    });
-    l(timestamp);
+    // const price = 5;
+    // const { timestamp } = await req.get("/test", {
+    //   params: { price }
+    // });
+    // l(timestamp);
 
-    const result = await checker(price, timestamp);
-    l(result);
+    // const result = await checker(price, timestamp);
+    // l(result);
+
+    l(props.store);
+    const {
+      store: { products }
+    } = props;
+    const item = Math.round(10 * Math.random());
+    const newProducts = [...products, item];
+    updateState({ products: newProducts });
+    //  UP({ city: "kaluga" });
   };
 
   useEffect(() => {
     (async () => {
       const { fingerprint } = ls.get();
       const { cart } = await req.get("/db/users", { params: { fingerprint } });
-      UPDATE_CART({ user: imup(user, { cart }) });
+      //UPDATE_CART({ user: imup(user, { cart }) });
       //  l(cart);
     })();
   }, []);
@@ -68,7 +80,4 @@ const Main = props => {
   );
 };
 
-export default connect(
-  state => state,
-  actions
-)(Main);
+export default connectToStore(Main);

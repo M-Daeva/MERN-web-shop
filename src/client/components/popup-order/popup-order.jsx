@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import actions from "../../state";
-import l from "../../services/log";
+import { connectToStore } from "../../state";
+import { l } from "../../../utils";
 import ls from "../../services/ls";
 import { req } from "../../services/request";
 import styles from "./popup-order.scss";
@@ -9,7 +8,10 @@ import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 const PopupOrder = props => {
-  const { UPDATE_FORM, form } = props;
+  const {
+    store: { form },
+    updateState
+  } = props;
 
   const { fingerprint = "empty" } = ls.get();
 
@@ -29,7 +31,7 @@ const PopupOrder = props => {
     const { login, password, email } = user;
     const newForm = { login, password, email };
 
-    UPDATE_FORM({
+    updateState({
       form: newForm
     });
   }, []);
@@ -40,7 +42,7 @@ const PopupOrder = props => {
       dataset: { type }
     } = e.target;
 
-    UPDATE_FORM({
+    updateState({
       form: { ...form, [type]: value }
     });
   };
@@ -95,7 +97,4 @@ const PopupOrder = props => {
   );
 };
 
-export default connect(
-  state => state,
-  actions
-)(PopupOrder);
+export default connectToStore(PopupOrder);

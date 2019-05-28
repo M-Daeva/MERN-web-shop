@@ -1,15 +1,18 @@
-import { l, imup } from "../../../utils";
+import { l, getByID } from "../../../utils";
 import ls from "../../services/ls";
 import { req } from "../../services/request";
 import React from "react";
-import { connect } from "react-redux";
-import actions, { getByID } from "../../state";
+import { connectToStore } from "../../state";
 import styles from "./cart-controls.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 const CartControls = props => {
-  const { id, products, user, UPDATE_PRODUCTS, UPDATE_CART } = props,
+  const {
+      id,
+      store: { products, user },
+      updateState
+    } = props,
     product = getByID(products, id);
 
   let quantity = getByID(user.cart, id, { quantity: 0 });
@@ -46,8 +49,8 @@ const CartControls = props => {
 
     const { fingerprint } = ls.get();
     req.put("/db/users", { ...newUser, fingerprint });
-    UPDATE_CART({ user: newUser });
-    UPDATE_PRODUCTS({ products: newProducts });
+    updateState({ user: newUser });
+    updateState({ products: newProducts });
   };
 
   return (
@@ -72,7 +75,4 @@ const CartControls = props => {
   );
 };
 
-export default connect(
-  state => state,
-  actions
-)(CartControls);
+export default connectToStore(CartControls);

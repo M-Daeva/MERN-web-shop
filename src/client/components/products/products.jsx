@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import actions from "../../state";
+import { connectToStore } from "../../state";
 import { req } from "../../services/request";
-import l from "../../services/log";
+import { l } from "../../../utils";
 import Spinner from "../spinner";
 import Product from "../product";
 import CartPrice from "../cart-price";
@@ -14,7 +13,10 @@ const cn = cnInit(styles);
 const prodSize = 10;
 
 const Products = props => {
-  const { products, isLoading, UPDATE_PRODUCTS, TOGGLE_SPINNER } = props;
+  const {
+    store: { products, isLoading },
+    updateState
+  } = props;
 
   const createProductList = async () => {
     let products = await req.get("/db/products");
@@ -27,13 +29,13 @@ const Products = props => {
       delete product.__v;
       return product;
     });
-    UPDATE_PRODUCTS({ products });
+    updateState({ products });
   };
 
   useEffect(() => {
     (async () => {
       await createProductList();
-      TOGGLE_SPINNER({ isLoading: false });
+      updateState({ isLoading: false });
       scrollRestorer();
     })();
   }, []);
@@ -43,7 +45,7 @@ const Products = props => {
     return (
       <ul className={cn("list")}>
         {products.map(({ id }) => (
-          <Product {...{ key: id, id }} />
+          <Product key={id} {...{ id }} />
         ))}
       </ul>
     );
@@ -67,7 +69,4 @@ const Products = props => {
   );
 };
 
-export default connect(
-  state => state,
-  actions
-)(Products);
+export default connectToStore(Products);

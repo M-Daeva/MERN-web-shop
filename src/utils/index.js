@@ -61,4 +61,11 @@ const imup = (tree, entry) => {
   return { ...tree, ...temp };
 };
 
-module.exports = { l, promisify, createRequest, getID, imup };
+const getByID = (arr, id, prop) => {
+  const elem = arr.find(({ id: _id }) => _id === id);
+  if (prop === undefined) return elem || {};
+  const [key, value] = Object.entries(prop)[0];
+  return elem ? elem[key] : value;
+};
+
+module.exports = { l, promisify, createRequest, getID, imup, getByID };

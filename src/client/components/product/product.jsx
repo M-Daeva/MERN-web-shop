@@ -1,14 +1,16 @@
-import l from "../../services/log";
 import React from "react";
-import { connect } from "react-redux";
-import actions, { getByID } from "../../state";
+import { connectToStore } from "../../state";
+import { getByID, l } from "../../../utils";
 import CartControls from "../cart-controls";
 import styles from "./product.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 const Product = props => {
-  const { id, products } = props,
+  const {
+      store: { products },
+      id
+    } = props,
     { name, description, price, img } = getByID(products, id);
 
   return (
@@ -22,7 +24,4 @@ const Product = props => {
   );
 };
 
-export default connect(
-  state => state,
-  actions
-)(Product);
+export default connectToStore(Product);

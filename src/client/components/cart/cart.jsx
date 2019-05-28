@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import actions from "../../state";
+import { connectToStore } from "../../state";
 import { req } from "../../services/request";
 import ls from "../../services/ls";
-import l from "../../services/log";
+import { l } from "../../../utils";
 import styles from "./cart.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 const Cart = props => {
-  const { secret, GET_SECRET } = props;
+  const {
+    store: { secret },
+    updateState
+  } = props;
 
   const getSecret = async () => {
     try {
@@ -17,7 +19,7 @@ const Cart = props => {
       const data = await req.get("/payment", {
         headers: { "x-auth-token": token }
       });
-      GET_SECRET({ secret: data.info });
+      updateState({ secret: data.info });
     } catch {
       l("no data");
     }
@@ -39,7 +41,4 @@ const Cart = props => {
   );
 };
 
-export default connect(
-  state => state,
-  actions
-)(Cart);
+export default connectToStore(Cart);

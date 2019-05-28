@@ -1,67 +1,25 @@
 import { createStore } from "redux";
-import { imup, l } from "../../utils";
+import { connect } from "react-redux";
+import initialState from "./initial-state";
+import { imup } from "../../utils";
 
-const getByID = (arr, id, prop) => {
-  const elem = arr.find(({ id: _id }) => _id === id);
-  if (prop === undefined) return elem || {};
-  const [key, value] = Object.entries(prop)[0];
-  return elem ? elem[key] : value;
+const UPDATE_STATE = "UPDATE_STATE";
+
+const actionCreators = {
+  updateState: payload => ({ type: UPDATE_STATE, payload })
 };
 
-const updateState = action => (...actionConstants) => {
+function reducer(state = { store: initialState }, action = {}) {
   const { type, payload } = action;
-
-  if (!reducer.actions) {
-    reducer.actions = actionConstants.reduce((acc, cur) => {
-      acc[cur] = payload => ({ type: cur, payload });
-      return acc;
-    }, {});
-  }
-
-  return actionConstants.includes(type) ? payload : {};
-};
-
-const getStore = () => {
-  reducer();
-
-  const { actions } = reducer,
-    store = createStore(reducer);
-
-  return { actions, store };
-};
-
-const initialState = {
-  products: [],
-  user: {
-    cart: [],
-    city: "",
-    orders: []
-  },
-  form: {
-    login: "",
-    password: "",
-    email: ""
-  },
-  isLoading: true,
-  secret: undefined
-};
-
-function reducer(state = initialState, action = {}) {
-  const newState = updateState(action)(
-    "UPDATE_PRODUCTS",
-    "UPDATE_CART",
-    "UPDATE_CITY",
-    "UPDATE_FORM",
-    "TOGGLE_SPINNER",
-    "GET_SECRET",
-    "CREATE_ORDER",
-    "UPDATE_ORDER_STATUS",
-    "UPDATE"
-  );
-
-  return { ...state, ...newState };
+  return type === UPDATE_STATE ? imup(state, payload) : state;
 }
 
-const { store, actions } = getStore();
+const store = createStore(reducer);
 
-export { getByID, store, actions as default };
+const connectToStore = Component =>
+  connect(
+    state => state,
+    actionCreators
+  )(Component);
+
+export { store, connectToStore };
