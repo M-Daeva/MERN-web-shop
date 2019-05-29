@@ -18,7 +18,7 @@ const Products = props => {
   }, []);
 
   const renderProductList = () => {
-    return <Spinner />;
+    if (isLoading) return <Spinner />;
     return (
       <ul className={cn("list")}>
         {products.map(({ id }) => (
