@@ -8,19 +8,12 @@ import {
 } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "../../state";
-import ls from "../../services/ls";
-import { req } from "../../services/request";
 import { Navbar, Main, Products, Cart, Order } from "../connector";
+import { setFingerprint } from "./functions";
 
 const App = () => {
   useEffect(() => {
-    (async () => {
-      let { fingerprint } = ls.get();
-      ({ fingerprint } = await req.post("/fingerprint", {
-        fingerprint
-      }));
-      ls.set({ fingerprint });
-    })();
+    setFingerprint();
   }, []);
 
   return (

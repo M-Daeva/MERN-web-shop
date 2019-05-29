@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./navbar.scss";
+import styles from "./index.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 

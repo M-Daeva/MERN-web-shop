@@ -1,7 +1,7 @@
 import React from "react";
 import { getByID, l } from "../../../utils";
 import { CartControls } from "../connector";
-import styles from "./product.scss";
+import styles from "./index.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 

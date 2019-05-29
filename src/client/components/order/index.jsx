@@ -1,6 +1,6 @@
 import React from "react";
 import { PopupOrder } from "../connector";
-import styles from "./order.scss";
+import styles from "./index.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
