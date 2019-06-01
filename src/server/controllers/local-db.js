@@ -5,7 +5,10 @@ const Product = require("../models/products"),
   jwt = require("jsonwebtoken"),
   { jwtSecret } = require("../config");
 
-let localDB = {};
+let localDB = {
+  products: [],
+  users: []
+};
 
 logTime("start");
 
