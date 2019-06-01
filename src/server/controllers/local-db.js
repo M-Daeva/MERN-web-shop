@@ -5,11 +5,10 @@ const Product = require("../models/products"),
   jwt = require("jsonwebtoken"),
   { jwtSecret } = require("../config");
 
-let localDB = {
-  products: [],
-  users: []
-};
+let localDB = {};
+
 logTime("start");
+
 const _loadProducts = async () => {
   let products = await Product.find();
   products = products.map(({ _id, name, description, img, params, price }) => {
