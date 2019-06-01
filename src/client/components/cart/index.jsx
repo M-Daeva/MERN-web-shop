@@ -1,17 +1,29 @@
 import React, { useEffect } from "react";
 import { $getSecret } from "./functions";
+import { l } from "../../../utils";
+import { Product } from "../connector";
 import styles from "./index.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 const Cart = props => {
   const {
-      store: { secret },
+      store: {
+        isAuthorized,
+        user: { cart }
+      },
       updateState
     } = props,
     getSecret = () => $getSecret(updateState),
     renderSecret = () => {
-      if (secret) return <button className={cn("btn")}>{secret}</button>;
+      if (isAuthorized)
+        return (
+          <ul className={cn("list")}>
+            {cart.map(({ id }) => (
+              <Product key={id} {...{ id }} />
+            ))}
+          </ul>
+        );
     };
 
   useEffect(() => {
@@ -20,7 +32,7 @@ const Cart = props => {
 
   return (
     <div className={cn("cart")}>
-      <p onClick={getSecret}>Корзина</p>
+      <p>Корзина</p>
       {renderSecret()}
     </div>
   );

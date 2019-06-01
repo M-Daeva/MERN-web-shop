@@ -5,13 +5,12 @@ import { l } from "../../../utils";
 const $getSecret = async updateState => {
   try {
     const { token } = ls.get();
-    const data = await req.get("/payment", {
+    const { isAuthorized } = await req.get("/local-db/secret", {
       headers: { "x-auth-token": token }
     });
-    updateState({ secret: data.info });
-  } catch {
-    l("no data");
-  }
+    let { products, user } = ls.get();
+    updateState({ isAuthorized, products, user });
+  } catch (e) {}
 };
 
 export { $getSecret };

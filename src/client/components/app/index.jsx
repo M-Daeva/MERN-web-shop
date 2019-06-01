@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Route,
   BrowserRouter as Router,
@@ -9,13 +9,8 @@ import {
 import { Provider } from "react-redux";
 import { store } from "../../state";
 import { Navbar, Main, Products, Cart, Order } from "../connector";
-import { setFingerprint } from "./functions";
 
 const App = () => {
-  useEffect(() => {
-    setFingerprint();
-  }, []);
-
   return (
     <Provider {...{ store }}>
       <HashRouter>

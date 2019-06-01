@@ -63,9 +63,28 @@ const imup = (tree, entry) => {
 
 const getByID = (arr, id, prop) => {
   const elem = arr.find(({ id: _id }) => _id === id);
-  if (prop === undefined) return elem || {};
+  if (prop === undefined) return elem;
   const [key, value] = Object.entries(prop)[0];
   return elem ? elem[key] : value;
 };
 
-module.exports = { l, promisify, createRequest, getID, imup, getByID };
+const getByEntry = (arr, entry) => {
+  const [[key, value]] = Object.entries(entry);
+  const elem = arr.find(({ [key]: _value }) => _value === value);
+  return elem;
+};
+
+const logTime = text => {
+  l(text, Date.now() % 10000);
+};
+
+module.exports = {
+  l,
+  promisify,
+  createRequest,
+  getID,
+  imup,
+  getByID,
+  logTime,
+  getByEntry
+};

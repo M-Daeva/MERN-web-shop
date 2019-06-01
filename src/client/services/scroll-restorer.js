@@ -1,5 +1,6 @@
 import ls from "./ls";
 import { restURL } from "../config";
+import { logTime } from "../../utils";
 
 const timeout = 200;
 

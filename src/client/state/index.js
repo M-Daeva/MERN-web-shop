@@ -1,7 +1,7 @@
 import { createStore } from "redux";
 import { connect } from "react-redux";
 import initialState from "./initial-state";
-import { imup } from "../../utils";
+import { imup, logTime } from "../../utils";
 
 const UPDATE_STATE = "UPDATE_STATE";
 

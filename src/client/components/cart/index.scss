@@ -1,22 +1,30 @@
-$btn-size: 150px;
-
 .cart {
   text-align: center;
-  font-weight: 700;
-  font-size: 26px;
+
+  & > p {
+    font-size: 24px;
+    font-weight: 700;
+  }
 }
 
-.btn {
-  text-align: center;
-  outline: none;
-  border: 1px solid black;
-  height: calc(#{$btn-size} / 2);
-  width: $btn-size;
-  font-size: calc(#{$btn-size} / 5);
-  background-color: white;
+.list {
+  padding: 0;
+}
 
-  &:hover,
+.db-update-btn {
+  outline: none;
+  display: block;
+  margin: 10px auto 0;
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 10%;
+  padding: 10px 5px;
+
   &:active {
     outline: none;
+  }
+  &:hover {
+    background-color: aqua;
+    cursor: pointer;
   }
 }

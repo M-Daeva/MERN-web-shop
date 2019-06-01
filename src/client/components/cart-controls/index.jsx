@@ -7,11 +7,11 @@ const cn = cnInit(styles);
 const CartControls = props => {
   const {
       id,
-      store: { products, user },
+      store: { user },
       updateState
     } = props,
     quantity = $getQuantity(user, id),
-    changeQuantity = e => $changeQuantity(e, user, updateState, products, id);
+    changeQuantity = e => $changeQuantity(e, user, updateState, id);
 
   return (
     <div className={cn("controls")} onClick={changeQuantity}>

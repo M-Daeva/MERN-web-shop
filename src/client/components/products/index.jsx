@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
+import { l, logTime } from "../../../utils";
 import { Spinner, Product, CartPrice } from "../connector";
-import { $updateDB, $init } from "./functions";
+import { $setState } from "./functions";
 import styles from "./index.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
@@ -10,11 +11,12 @@ const Products = props => {
       store: { products, isLoading },
       updateState
     } = props,
-    updateDB = () => $updateDB(updateState),
-    init = () => $init(updateState);
+    setState = () => $setState(updateState);
 
+  logTime("prod");
   useEffect(() => {
-    init();
+    logTime("prod ready");
+    setState();
   }, []);
 
   const renderProductList = () => {
@@ -30,12 +32,7 @@ const Products = props => {
 
   return (
     <div className={cn("products")}>
-      <CartPrice {...{ products }} />
-      {
-        // <button className={cn("db-update-btn")} onClick={updateDB}>
-        //   refresh product list
-        // </button>
-      }
+      {<CartPrice {...{ products }} />}
       {renderProductList()}
     </div>
   );

@@ -8,6 +8,7 @@ const { port } = require("./config"),
   telegram = require("./routes/telegram"),
   payment = require("./routes/payment"),
   test = require("./routes/test"),
+  localDB = require("./routes/local-db"),
   app = exp();
 
 app.use(cors(), text(), json());
@@ -17,5 +18,6 @@ app.use("/telegram", telegram);
 app.use("/db", db);
 app.use("/payment", payment);
 app.use("/test", test);
+app.use("/local-db", localDB);
 
 app.listen(port);

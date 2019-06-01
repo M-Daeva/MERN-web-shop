@@ -8,26 +8,26 @@ const getCreditials = form => {
 };
 
 const $createForm = updateState => {
-  const { fingerprint = "empty" } = ls.get();
-  const user = {
-    login: "Ricardo",
-    password: "qwerty",
-    email: "milos@gmail.com",
-    cart: [1, 5, 7],
-    city: "Brazil",
+  const { user = {} } = ls.get(),
+    { fingerprint = "empty" } = user;
+
+  const newUser = {
+    login: "John",
+    password: "Doe",
+    email: "john@gmail.com",
+    cart: [],
+    city: "London",
     fingerprint
   };
 
-  const newForm = getCreditials(user);
+  const newForm = getCreditials(newUser);
 
   updateState({
     form: newForm
   });
-
-  return newForm;
 };
 
-const $updateForm = (e, updateState, form) => {
+const $updateForm = async (e, updateState, form) => {
   const {
     value,
     dataset: { type }
@@ -40,12 +40,14 @@ const $updateForm = (e, updateState, form) => {
 
 const $submit = async (e, form) => {
   e.preventDefault();
-  const { fingerprint, token: oldToken } = ls.get();
-
-  const newForm = getCreditials(form);
+  const {
+      user: { fingerprint },
+      token: oldToken
+    } = ls.get(),
+    newForm = getCreditials(form);
 
   const res = await req.post(
-    "/db/users",
+    "/local-db/auth",
     {
       ...newForm,
       fingerprint

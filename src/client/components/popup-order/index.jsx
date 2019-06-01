@@ -6,13 +6,14 @@ import {
   getCreditials,
   getID
 } from "./functions";
+import { l } from "../../../utils";
 import styles from "./index.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 
 const PopupOrder = props => {
   const {
-      store: { form },
+      store: { form, user },
       updateState
     } = props,
     { login, password, email } = getCreditials(form),
@@ -29,7 +30,7 @@ const PopupOrder = props => {
 
     return (
       <input
-        key={getID()}
+        key={type}
         className={cn("input")}
         type="text"
         data-type={type}
@@ -43,7 +44,8 @@ const PopupOrder = props => {
     <div className={cn("popup-order")}>
       <h2>Авторизация/Регистрация</h2>
       <form onSubmit={submit}>
-        {[login, password, email].map(item => renderInput({ [item]: item }))}
+        {[{ login }, { password }, { email }].map(renderInput)}
+
         <button className={cn("btn")}>Ввести</button>
       </form>
       <p>* Обязательно при регистрации</p>

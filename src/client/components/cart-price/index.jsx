@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { $calcTotalPrice, $updateUserInfo } from "./functions";
+import React from "react";
+import { $calcTotalPrice } from "./functions";
 import styles from "./index.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
@@ -9,15 +9,9 @@ const CartPrice = props => {
       store: {
         products = [],
         user: { cart }
-      },
-      updateState
+      }
     } = props,
-    calcTotalPrice = () => $calcTotalPrice(cart, products),
-    updateUserInfo = () => $updateUserInfo(updateState);
-
-  useEffect(() => {
-    updateUserInfo();
-  }, []);
+    calcTotalPrice = () => $calcTotalPrice(cart, products);
 
   return (
     <h2 className={cn("cartPrice white")}>
