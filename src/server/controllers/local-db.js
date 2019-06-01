@@ -54,7 +54,7 @@ const _syncDB = async (period = 10) => {
   setTimeout(_syncDB, 1e3 * period);
 };
 
-_syncDB();
+//_syncDB();
 
 const sendPreloadData = (req, res) => {
   const { fingerprint: fp } = req.query;
@@ -155,9 +155,14 @@ const sendSecret = async (req, res) => {
   res.send({ isAuthorized });
 };
 
+const _checkUsers = async (req, res) => {
+  res.send(localDB.users);
+};
+
 module.exports = {
   sendPreloadData,
   updateUserInfo,
   userAuth,
-  sendSecret
+  sendSecret,
+  _checkUsers
 };
