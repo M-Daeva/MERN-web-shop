@@ -1,15 +1,15 @@
-import { l, getID } from "../../../utils";
+import { l, getID, imup } from "../../../utils";
 import ls from "../../services/ls";
 import { req } from "../../services/request";
 
-const getCreditials = form => {
+const _getCreditials = form => {
   const { login, password, email } = form;
   return { login, password, email };
 };
 
-const $createForm = updateState => {
+const _createForm = () => {
   const { user = {} } = ls.get(),
-    { fingerprint = "empty" } = user;
+    { fingerprint } = user;
 
   const newUser = {
     login: "John",
@@ -20,11 +20,7 @@ const $createForm = updateState => {
     fingerprint
   };
 
-  const newForm = getCreditials(newUser);
-
-  updateState({
-    form: newForm
-  });
+  return _getCreditials(newUser);
 };
 
 const $updateForm = async (e, updateState, form) => {
@@ -33,32 +29,44 @@ const $updateForm = async (e, updateState, form) => {
     dataset: { type }
   } = e.target;
 
-  updateState({
-    form: { ...form, [type]: value }
-  });
+  form = imup(form, { [type]: value });
+  updateState({ form });
 };
 
 const $submit = async (e, form) => {
   e.preventDefault();
-  const {
-      user: { fingerprint },
-      token: oldToken
-    } = ls.get(),
-    newForm = getCreditials(form);
+  let {
+    user: { fingerprint },
+    token
+  } = ls.get();
+
+  form = _getCreditials(form);
 
   const res = await req.post(
     "/local-db/auth",
-    {
-      ...newForm,
-      fingerprint
-    },
-    {
-      headers: { "x-auth-token": oldToken }
-    }
+    { ...form, fingerprint },
+    { headers: { "x-auth-token": token } }
   );
   l(res);
-  const { token } = res;
+  ({ token } = res);
   ls.set({ token });
 };
 
-export { $submit, $updateForm, $createForm, getCreditials, getID };
+const $setState = async updateState => {
+  let { user: { fingerprint, city } = {} } = ls.get(),
+    { user } = await req.get("/local-db/preload-data", {
+      params: { fingerprint }
+    });
+  ({ fingerprint, city } = user);
+
+  ls.set({ user: { fingerprint, city } });
+
+  const form = _createForm();
+
+  updateState({
+    user,
+    form
+  });
+};
+
+export { $submit, $updateForm, getID, $setState };

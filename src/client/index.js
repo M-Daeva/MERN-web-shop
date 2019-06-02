@@ -1,7 +1,7 @@
 import { logTime } from "../utils";
 logTime("root");
 
-import "./services/preload";
+//import "./services/preload";
 
 import React from "react";
 import ReactDOM from "react-dom";

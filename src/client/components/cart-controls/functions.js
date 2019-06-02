@@ -1,15 +1,14 @@
-import { l, getByID } from "../../../utils";
+import { l, getByID, getByEntry, imup, imupar } from "../../../utils";
 import { req } from "../../services/request";
 
 const $getQuantity = (user, id) => getByID(user.cart, id, { quantity: 0 });
 
-const $changeQuantity = (e, user, updateState, id) => {
+const _changeQuantity = (e, quantity) => {
   const {
     value,
     dataset: { type }
   } = e.target;
 
-  let quantity = $getQuantity(user, id);
   const lookup = {
     dec: +quantity - 1,
     inc: +quantity + 1,
@@ -17,24 +16,20 @@ const $changeQuantity = (e, user, updateState, id) => {
   }[type];
   // type convertion fixes input bug
   if (lookup >= 0) quantity = `${lookup}`;
-
-  const { cart } = user,
-    targetProduct = getByID(cart, id),
-    newProduct = { id, quantity };
-
-  let newCart;
-  if (!targetProduct) newCart = [...cart, newProduct];
-  else
-    newCart = cart.map(product => {
-      return product.id === id ? newProduct : product;
-    });
-  newCart = newCart.filter(({ quantity }) => +quantity);
-
-  updateState({ cart: newCart });
-  req.put("/local-db/update-user-info", {
-    ...user,
-    cart: newCart
-  });
+  return quantity;
 };
 
-export { $changeQuantity, $getQuantity };
+const $setState = (e, user, updateState, id) => {
+  let quantity = $getQuantity(user, id);
+  quantity = _changeQuantity(e, quantity);
+
+  let { cart } = user;
+  cart = imupar(cart, { quantity }, { id });
+  cart = cart.filter(({ quantity }) => +quantity);
+  updateState({ cart });
+
+  user = imup(user, { cart });
+  req.put("/local-db/update-user-info", user);
+};
+
+export { $setState, $getQuantity };

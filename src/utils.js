@@ -78,6 +78,49 @@ const logTime = text => {
   l(text, Date.now() % 10000);
 };
 
+// replaces found by entry element of array by this element, merged with new element
+const imupar = (arr, newItem, entry, isClean = true) => {
+  const [[key, value]] = Object.entries(entry),
+    targetItem = getByEntry(arr, entry);
+
+  if (!targetItem) arr = [...arr, { ...newItem, [key]: value }];
+  else
+    arr = arr.map(item => {
+      item = isClean ? item : clearItem(item);
+      return item[key] == value ? { ...item, ...newItem } : item;
+    });
+
+  return arr;
+};
+
+const imfi = (arr, entry) => {
+  const [[key, value]] = Object.entries(entry);
+  return arr.filter(item => item[key] !== value);
+};
+
+const clearItem = item => JSON.parse(JSON.stringify(item));
+
+const mergeCarts = (preCart, curCart) => {
+  preCart.map(preItem => {
+    const { id: preId, quantity: preQuantity } = preItem,
+      isFound = getByEntry(curCart, { id: preId });
+
+    if (!isFound) curCart.push(preItem);
+    else {
+      curCart = curCart.map(curItem => {
+        const { id: curId, quantity: curQuantity } = curItem;
+
+        if (curId === preId) {
+          curItem.quantity = `${+curQuantity + +preQuantity}`;
+        }
+        return curItem;
+      });
+    }
+  });
+
+  return curCart;
+};
+
 module.exports = {
   l,
   promisify,
@@ -86,5 +129,9 @@ module.exports = {
   imup,
   getByID,
   logTime,
-  getByEntry
+  getByEntry,
+  imupar,
+  clearItem,
+  imfi,
+  mergeCarts
 };

@@ -1,5 +1,6 @@
 import React from "react";
-import { $changeQuantity, $getQuantity } from "./functions";
+import { l } from "../../../utils";
+import { $setState, $getQuantity } from "./functions";
 import styles from "./index.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
@@ -11,10 +12,10 @@ const CartControls = props => {
       updateState
     } = props,
     quantity = $getQuantity(user, id),
-    changeQuantity = e => $changeQuantity(e, user, updateState, id);
+    setState = e => $setState(e, user, updateState, id);
 
   return (
-    <div className={cn("controls")} onClick={changeQuantity}>
+    <div className={cn("controls")} onClick={setState}>
       <div>
         <button data-type="dec" className={cn("btn")}>
           -
@@ -24,7 +25,7 @@ const CartControls = props => {
           type="number"
           className={cn("input")}
           value={quantity}
-          onChange={changeQuantity}
+          onChange={setState}
         />
         <button data-type="inc" className={cn("btn")}>
           +
