@@ -10,9 +10,14 @@ const { port } = require("./config"),
   test = require("./routes/test"),
   localDB = require("./routes/local-db"),
   main = require("./routes/main"),
-  app = exp();
+  path = require("path"),
+  express = require("express"),
+  app = exp(),
+  statPathStr = "../../docs".split("/"),
+  statPath = path.join(__dirname, ...statPathStr),
+  stat = express.static(statPath);
 
-app.use(cors(), text(), json());
+app.use(cors(), text(), json(), stat);
 app.use("/", main);
 app.use("/grabber", grabber);
 app.use("/fingerprint", fingerprint);
