@@ -9,9 +9,11 @@ const { port } = require("./config"),
   payment = require("./routes/payment"),
   test = require("./routes/test"),
   localDB = require("./routes/local-db"),
+  main = require("./routes/main"),
   app = exp();
 
 app.use(cors(), text(), json());
+app.use("/", main);
 app.use("/grabber", grabber);
 app.use("/fingerprint", fingerprint);
 app.use("/telegram", telegram);
