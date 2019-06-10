@@ -55,11 +55,12 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.2.3",
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "babel-polyfill": "^6.26.0",
     "bcryptjs": "^2.4.3",
     "block_io": "^2.0.0",
     "body-parser": "^1.18.3",
+    "compression": "^1.7.4",
     "config": "^3.1.0",
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",

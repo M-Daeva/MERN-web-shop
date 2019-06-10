@@ -12,12 +12,13 @@ const { port } = require("./config"),
   main = require("./routes/main"),
   path = require("path"),
   express = require("express"),
+  compression = require("compression"),
   app = exp(),
   statPathStr = "../../docs".split("/"),
   statPath = path.join(__dirname, ...statPathStr),
   stat = express.static(statPath);
 
-app.use(cors(), text(), json(), stat);
+app.use(cors(), text(), json(), stat, compression());
 app.use("/", main);
 app.use("/grabber", grabber);
 app.use("/fingerprint", fingerprint);
