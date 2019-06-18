@@ -6,8 +6,16 @@ const initialState = {
   products: [],
   user: {
     cart: [],
-    city: "",
-    orders: []
+    city: "Москва",
+    orders: [],
+    address: {
+      district: "",
+      city: "",
+      street: "",
+      house: "",
+      apartment: "",
+      postcode: ""
+    }
   },
   form: {
     login: "",
@@ -15,7 +23,11 @@ const initialState = {
     email: ""
   },
   isLoading: true,
-  isAuthorized: false
+  isAuthorized: false,
+  sugg: {
+    region: {},
+    city: {}
+  }
 };
 
 export default initialState;

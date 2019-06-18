@@ -1,0 +1,43 @@
+.inp {
+  border: 1px solid;
+  position: relative;
+
+  & > input {
+    width: 200px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  & > ul {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    padding: 0;
+    width: 200px;
+    z-index: 1;
+
+    & > li {
+      text-align: center;
+      list-style: none;
+
+      &:nth-child(odd) {
+        background-color: orange;
+
+        &:hover {
+          background-color: lime;
+          cursor: pointer;
+        }
+      }
+
+      &:nth-child(even) {
+        background-color: yellow;
+
+        &:hover {
+          background-color: lime;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

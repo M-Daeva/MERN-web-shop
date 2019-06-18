@@ -21,6 +21,7 @@ import $PopupOrder from "./popup-order";
 import $Product from "./product";
 import $Products from "./products";
 import $Spinner from "./spinner";
+import $SuggInput from "./suggInput";
 
 const {
   Cart,
@@ -32,7 +33,8 @@ const {
   PopupOrder,
   Product,
   Products,
-  Spinner
+  Spinner,
+  SuggInput
 } = connect({
   $Cart,
   $CartControls,
@@ -43,7 +45,8 @@ const {
   $PopupOrder,
   $Product,
   $Products,
-  $Spinner
+  $Spinner,
+  $SuggInput
 });
 
 export {
@@ -57,5 +60,6 @@ export {
   PopupOrder,
   Product,
   Products,
-  Spinner
+  Spinner,
+  SuggInput
 };

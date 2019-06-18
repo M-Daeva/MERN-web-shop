@@ -18,8 +18,9 @@ const { port } = require("./config"),
   statPath = path.join(__dirname, ...statPathStr),
   stat = express.static(statPath);
 
-app.use(compression(), cors(), text(), json(), stat);
-app.use("/", main);
+app.use(compression(), cors(), text(), json());
+//app.use(compression(), cors(), text(), json(), stat);
+//app.use("/", main);
 app.use("/grabber", grabber);
 app.use("/fingerprint", fingerprint);
 app.use("/telegram", telegram);

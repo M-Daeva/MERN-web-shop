@@ -28,5 +28,10 @@ module.exports = {
   referer: p.REFERER,
   host: p.HOST,
   referer2: p.REFERER2,
-  host2: p.HOST2
+  host2: p.HOST2,
+  ngrok: p.NGROK_URL,
+  geo: {
+    token: p.GEO_TOKEN,
+    baseURL: p.GEO_BASE_URL
+  }
 };

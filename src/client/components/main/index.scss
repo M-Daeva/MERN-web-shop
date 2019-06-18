@@ -1,3 +1,14 @@
+.main {
+  & > p > span {
+    color: blue;
+    text-decoration: underline;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
 .ta,
 .inp,
 .btn {

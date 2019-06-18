@@ -2,7 +2,8 @@ const path = require("path"),
   HtmlWebpackPlugin = require("html-webpack-plugin"),
   MiniCssExtractPlugin = require("mini-css-extract-plugin"),
   webpack = require("webpack"),
-  CnameWebpackPlugin = require("cname-webpack-plugin");
+  CnameWebpackPlugin = require("cname-webpack-plugin"),
+  CompressionPlugin = require("compression-webpack-plugin");
 
 const sass = {
   test: /\.(sass|scss)$/,
@@ -93,6 +94,10 @@ const config = {
     new CnameWebpackPlugin({
       domain: "madembed.ru"
     })
+
+    // new CompressionPlugin({
+    //   test: /\.js$/
+    // })
   ],
   resolve: {
     extensions: [".js", ".jsx"]
