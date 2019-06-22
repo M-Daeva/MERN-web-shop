@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { $submit, $updateForm, $setState } from "./functions";
+import fns from "./functions";
 import { l } from "../../../utils";
 import styles from "./index.scss";
 import cnInit from "jcm-classnames";
@@ -11,9 +11,7 @@ const PopupOrder = props => {
       updateState
     } = props,
     { login, password, email } = form,
-    updateForm = e => $updateForm(e, updateState, form),
-    submit = e => $submit(e, form),
-    setState = () => $setState(updateState);
+    { updateForm, setState, submit } = fns(updateState, form);
 
   useEffect(() => {
     setState();

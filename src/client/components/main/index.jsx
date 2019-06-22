@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { promisify, l, createRequest } from "../../../utils";
-import { submit, $getCity, $getSuggestions } from "./functions";
+import fns from "./functions";
 import styles from "./index.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
 import { SuggInput } from "../connector";
+import getAddress from "../../services/geolocation";
 
 const Main = props => {
   const {
@@ -16,7 +17,12 @@ const Main = props => {
       },
       updateState
     } = props,
-    getCity = () => $getCity(updateState);
+    { submit, getSuggestions, getCity } = fns(updateState);
+
+  // (async () => {
+  //   const d = await getAddress();
+  //   console.log(d);
+  // })();
 
   let el;
 
@@ -26,7 +32,7 @@ const Main = props => {
 
   const up = async e => {
     const { value } = e.target,
-      sug = await $getSuggestions(value);
+      sug = await getSuggestions(value);
     updateState({ list: sug });
   };
 

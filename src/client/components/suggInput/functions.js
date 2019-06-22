@@ -1,9 +1,11 @@
 import { l } from "../../../utils";
-import getSuggestions from "../../services/suggestions";
+import gs from "../../services/suggestions";
 
-const $getSuggestions = async (query, target, fias) => {
-  const data = await getSuggestions(query, target, fias);
-  return data.map(({ value }) => value);
+export default () => {
+  const getSuggestions = async (query, target, fias) => {
+    const data = await gs(query, target, fias);
+    return data.map(({ value }) => value);
+  };
+
+  return { getSuggestions };
 };
-
-export { $getSuggestions };

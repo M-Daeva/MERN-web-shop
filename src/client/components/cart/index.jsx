@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { $setState } from "./functions";
+import fns from "./functions";
 import { l } from "../../../utils";
 import { Product } from "../connector";
 import styles from "./index.scss";
@@ -14,7 +14,7 @@ const Cart = props => {
       },
       updateState
     } = props,
-    setState = () => $setState(updateState),
+    { setState } = fns(updateState),
     renderSecret = () => {
       if (isAuthorized)
         return (

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { l, logTime } from "../../../utils";
 import { Spinner, Product, CartPrice } from "../connector";
-import { $setState } from "./functions";
+import fns from "./functions";
 import styles from "./index.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
@@ -11,7 +11,7 @@ const Products = props => {
       store: { products, isLoading },
       updateState
     } = props,
-    setState = () => $setState(updateState);
+    { setState } = fns(updateState);
 
   logTime("prod");
   useEffect(() => {

@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { l } from "../../../utils";
-import { $getSuggestions } from "./functions";
+import fns from "./functions";
 import styles from "./index.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
@@ -8,13 +8,14 @@ const cn = cnInit(styles);
 const SuggInput = props => {
   const { target } = props;
   let el;
-  const [list, updateList] = useState([]);
+  const [list, updateList] = useState([]),
+    { getSuggestions } = fns();
 
   const getRef = node => (el = node);
 
   const up = async e => {
     const { value } = e.target,
-      list = await $getSuggestions(value, target);
+      list = await getSuggestions(value, target);
     l(list);
     updateList(list);
   };

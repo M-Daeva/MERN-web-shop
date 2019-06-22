@@ -1,6 +1,6 @@
 import React from "react";
 import { l } from "../../../utils";
-import { $setState, $getQuantity } from "./functions";
+import fns from "./functions";
 import styles from "./index.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
@@ -11,8 +11,7 @@ const CartControls = props => {
       store: { user },
       updateState
     } = props,
-    quantity = $getQuantity(user, id),
-    setState = e => $setState(e, user, updateState, id);
+    { setState, quantity } = fns(user, id, updateState);
 
   return (
     <div className={cn("controls")} onClick={setState}>

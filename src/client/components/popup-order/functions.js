@@ -2,71 +2,73 @@ import { l, getID, imup } from "../../../utils";
 import ls from "../../services/ls";
 import { req } from "../../services/request";
 
-const _getCreditials = form => {
-  const { login, password, email } = form;
-  return { login, password, email };
-};
-
-const _createForm = () => {
-  const { user = {} } = ls.get(),
-    { fingerprint } = user;
-
-  const newUser = {
-    login: "John",
-    password: "Doe",
-    email: "john@gmail.com",
-    cart: [],
-    city: "London",
-    fingerprint
+export default (updateState, form) => {
+  const _getCreditials = form => {
+    const { login, password, email } = form;
+    return { login, password, email };
   };
 
-  return _getCreditials(newUser);
-};
+  const _createForm = () => {
+    const { user = {} } = ls.get(),
+      { fingerprint } = user;
 
-const $updateForm = async (e, updateState, form) => {
-  const {
-    value,
-    dataset: { type }
-  } = e.target;
+    const newUser = {
+      login: "John",
+      password: "Doe",
+      email: "john@gmail.com",
+      cart: [],
+      city: "London",
+      fingerprint
+    };
 
-  form = imup(form, { [type]: value });
-  updateState({ form });
-};
+    return _getCreditials(newUser);
+  };
 
-const $submit = async (e, form) => {
-  e.preventDefault();
-  let {
-    user: { fingerprint },
-    token
-  } = ls.get();
+  const updateForm = async e => {
+    const {
+      value,
+      dataset: { type }
+    } = e.target;
 
-  form = _getCreditials(form);
+    form = imup(form, { [type]: value });
+    updateState({ form });
+  };
 
-  const res = await req.post(
-    "/local-db/auth",
-    { ...form, fingerprint },
-    { headers: { "x-auth-token": token } }
-  );
-  l(res);
-  ({ token } = res);
-  ls.set({ token });
-};
+  const submit = async e => {
+    e.preventDefault();
+    let {
+      user: { fingerprint },
+      token
+    } = ls.get();
 
-const $setState = async updateState => {
-  let { user: { fingerprint, city } = {} } = ls.get(),
-    { user } = await req.get("/local-db/preload-data", {
-      params: { fingerprint }
+    form = _getCreditials(form);
+
+    const res = await req.post(
+      "/local-db/auth",
+      { ...form, fingerprint },
+      { headers: { "x-auth-token": token } }
+    );
+    l(res);
+    ({ token } = res);
+    ls.set({ token });
+  };
+
+  const setState = async () => {
+    let { user: { fingerprint, city } = {} } = ls.get(),
+      { user } = await req.get("/local-db/preload-data", {
+        params: { fingerprint }
+      });
+    ({ fingerprint, city } = user);
+
+    ls.set({ user: { fingerprint, city } });
+
+    const form = _createForm();
+
+    updateState({
+      user,
+      form
     });
-  ({ fingerprint, city } = user);
+  };
 
-  ls.set({ user: { fingerprint, city } });
-
-  const form = _createForm();
-
-  updateState({
-    user,
-    form
-  });
+  return { submit, updateForm, getID, setState };
 };
-
-export { $submit, $updateForm, getID, $setState };

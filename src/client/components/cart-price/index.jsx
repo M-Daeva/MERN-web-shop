@@ -1,5 +1,5 @@
 import React from "react";
-import { $calcTotalPrice } from "./functions";
+import fns from "./functions";
 import styles from "./index.scss";
 import cnInit from "jcm-classnames";
 const cn = cnInit(styles);
@@ -11,7 +11,7 @@ const CartPrice = props => {
         user: { cart }
       }
     } = props,
-    calcTotalPrice = () => $calcTotalPrice(cart, products);
+    { calcTotalPrice } = fns(cart, products);
 
   return (
     <h2 className={cn("cartPrice white")}>
