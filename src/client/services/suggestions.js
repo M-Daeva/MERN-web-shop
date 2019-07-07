@@ -3,7 +3,7 @@ import { createRequest } from "../../utils";
 const getSuggestions = async (query, target, fias) => {
   const token = "36053df9adcbffffaf0801057e1621345dc45919",
     baseURL =
-      "http://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address",
+      "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address",
     req = createRequest({
       baseURL,
       headers: {
